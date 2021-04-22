@@ -7,5 +7,5 @@ logs/*
 vendor/*
 conf/app.conf
 go.sum
-egg
+monkey
 lastupdate.tmp

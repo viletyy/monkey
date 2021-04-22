@@ -1,15 +1,7 @@
 /*
- * @Date: 2021-04-07 10:04:32
+ * @Date: 2021-04-22 11:42:46
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-07 10:04:33
- * @FilePath: /egg/static/app.js
+ * @LastEditTime: 2021-04-22 13:45:34
+ * @FilePath: /monkey/static/app.js
  */
-document.addEventListener('DOMContentLoaded', () => {
-  (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
-    const $notification = $delete.parentNode;
-
-    $delete.addEventListener('click', () => {
-      $notification.parentNode.removeChild($notification);
-    });
-  });
-});
+import "./Font-Awesome/js/all"

@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-11 11:46:46
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-22 09:37:41
+ * @LastEditTime: 2021-04-22 15:02:36
  * @FilePath: /monkey/controllers/base.go
  */
 package controllers
@@ -35,6 +35,10 @@ func (c *BaseController) Finish() {
 
 func (c *BaseController) Prepare() {
 	c.Layout = "layout/app.tpl"
+	c.LayoutSections = make(map[string]string)
+	c.LayoutSections["Navbar"] = "shared/navbar.tpl"
+	c.LayoutSections["Notification"] = "shared/notification.tpl"
+	c.LayoutSections["Footer"] = "shared/footer.tpl"
 
 	// 启动时间
 	c.StartTime = time.Now().UnixNano()
