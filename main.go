@@ -1,14 +1,12 @@
 /*
  * @Date: 2021-03-09 09:57:02
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-22 18:20:50
+ * @LastEditTime: 2021-04-23 16:39:49
  * @FilePath: /monkey/main.go
  */
 package main
 
 import (
-	"fmt"
-
 	"github.com/viletyy/monkey/global"
 	"github.com/viletyy/monkey/initialize"
 	_ "github.com/viletyy/monkey/routers"
@@ -17,7 +15,6 @@ import (
 )
 
 func main() {
-	fmt.Sprintf("skfjdk%d", 2322)
 	global.LOG = initialize.Zap()
 
 	// 初始化数据库

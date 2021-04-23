@@ -1,9 +1,23 @@
+@import 'normalize.min.css';
 @import 'bulma/css/bulma.min.css';
-@import 'Font-Awesome/css/all.min.css';
+@import 'overlay-scrollbars.min.css';
+@import 'os-theme-thin-dark.css';
+@import 'prism.css';
+@import 'cheatsheet.css';
+@import 'font-awesome/css/all.min.css';
 a {
   color: #3e8ed0;
   cursor: pointer;
   text-decoration: none;
+}
+
+.menu-list a.is-active {
+  background-color: #3e8ed0;
+  color: #fff;
+}
+
+.no-shadow {
+  box-shadow: none;
 }
 
 /* Helper styles */

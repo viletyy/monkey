@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-11 10:26:08
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-22 18:35:46
+ * @LastEditTime: 2021-04-23 11:22:41
  * @FilePath: /monkey/controllers/user.go
  */
 package controllers
@@ -15,22 +15,22 @@ import (
 	beego "github.com/beego/beego/v2/server/web"
 )
 
-type UserController struct {
-	BaseController
+type User struct {
+	Base
 }
 
-func (c *UserController) Index() {
+func (c *User) Index() {
 
 }
 
-func (c *UserController) Login() {
+func (c *User) Login() {
 	if c.CurrentLoginUser != nil {
 		c.RedirectTo("/")
 	}
 }
 
-func (c *UserController) LoginHandle() {
-	c.RedirectUrl = beego.URLFor("UserController.Login")
+func (c *User) LoginHandle() {
+	c.RedirectUrl = beego.URLFor("User.Login")
 	loginUser := validations.UserLoginValidation{}
 	c.ValidatorAuto(&loginUser)
 
@@ -59,12 +59,12 @@ func (c *UserController) LoginHandle() {
 	c.RedirectTo("/")
 }
 
-func (c *UserController) Register() {
+func (c *User) Register() {
 
 }
 
-func (c *UserController) RegisterHandle() {
-	c.RedirectUrl = beego.URLFor("UserController.Register")
+func (c *User) RegisterHandle() {
+	c.RedirectUrl = beego.URLFor("User.Register")
 	registerUser := validations.UserRegisterValidation{}
 	c.ValidatorAuto(&registerUser)
 
@@ -78,11 +78,11 @@ func (c *UserController) RegisterHandle() {
 		c.RedirectTo(c.RedirectUrl)
 	} else {
 		c.FlashSuccess("注册成功")
-		c.RedirectTo(beego.URLFor("UserController.Login"))
+		c.RedirectTo(beego.URLFor("User.Login"))
 	}
 }
 
-func (c *UserController) Loginout() {
+func (c *User) Loginout() {
 	c.CurrentLoginUser = nil
 	c.Ctx.SetCookie("login_user_id", "", -3600)
 	c.Ctx.SetCookie("login_user_sign", "", -3600)

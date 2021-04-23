@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-07 10:04:32
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-22 14:07:41
+ * @LastEditTime: 2021-04-23 11:30:07
  * @FilePath: /monkey/static/app-footer.js
  */
 document.addEventListener('DOMContentLoaded', () => {
@@ -16,5 +16,5 @@ document.addEventListener('DOMContentLoaded', () => {
   var $flashNotification = document.getElementById("flash-notification")
   setTimeout(function() {
     $flashNotification.parentNode.removeChild($flashNotification)
-  }, 5000);
+  }, 3000);
 });

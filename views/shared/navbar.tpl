@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-04-22 14:58:05
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-22 18:36:59
+ * @LastEditTime: 2021-04-23 11:36:59
  * @FilePath: /monkey/views/shared/navbar.tpl
 -->
 <nav class="navbar has-shadow">
@@ -23,21 +23,21 @@
             </span>
           </div>
         </div>
-        <a href="{{urlfor "IndexController.Index"}}" class="navbar-item
+        <a href="{{urlfor "Index.Index"}}" class="navbar-item
           {{if eq .RouterPattern "/"}}
           is-active 
           {{end}}
           is-size-5 has-text-weight-semibold">
           首页
         </a>
-        <a href="{{urlfor "ArticleController.Index"}}" class="navbar-item
+        <a href="{{urlfor "Article.Index"}}" class="navbar-item
           {{if eq .RouterPattern "/article"}}
           is-active 
           {{end}}
           is-size-5 has-text-weight-semibold">
           文章
         </a>
-        <a href="{{urlfor "NewsController.Index"}}" class="navbar-item 
+        <a href="{{urlfor "News.Index"}}" class="navbar-item 
           {{if eq .RouterPattern "/news"}}
           is-active 
           {{end}}
@@ -48,20 +48,20 @@
           {{if .IsLogin}}
             <a class="navbar-link">{{.User.Username}}</a>
             <div class="navbar-dropdown">
-              <a href="{{urlfor "UserController.Index"}}" class="navbar-item">个人中心</a>
+              <a href="{{urlfor "User.Index"}}" class="navbar-item">个人中心</a>
               {{if .IsAdmin}}
-                <a class="navbar-item">后台管理</a>
+                <a href="{{urlfor "admin.Dashboard.Index" }}" class="navbar-item">后台管理</a>
               {{end}}
               <hr class="navbar-divider" />
               <div class="navbar-item">
-                <a href="{{urlfor "UserController.Loginout"}}">登出</a>
+                <a href="{{urlfor "User.Loginout"}}">登出</a>
               </div>
             </div>
           {{else}}
             <div class="navbar-item">
               <div class="field is-grouped">
                 <div class="control">
-                  <a href="{{urlfor "UserController.Login"}}" class="button ml-2 is-info">
+                  <a href="{{urlfor "User.Login"}}" class="button ml-2 is-info">
                     <span class="icon-text">
                       <span class="icon">
                         <i class="fas fa-sign-in-alt"></i>
@@ -69,7 +69,7 @@
                       <span>登陆</span>
                     </span>
                   </a>
-                  <a href="{{urlfor "UserController.Register"}}" class="button ml-2 is-info is-light">
+                  <a href="{{urlfor "User.Register"}}" class="button ml-2 is-info is-light">
                     <span class="icon-text">
                       <span class="icon">
                         <i class="fas fa-user-plus"></i>

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-03-11 11:30:16
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-22 15:03:23
+ * @LastEditTime: 2021-04-23 17:06:45
  * @FilePath: /monkey/views/layout/app.tpl
 -->
 <!DOCTYPE html>
@@ -10,8 +10,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Monkey</title>
-  <link rel="stylesheet" href="/static/app.css">
   <script src="/static/app.js"></script>
+  <link rel="stylesheet" href="/static/app.css">
 </head>
 <body>
 {{.Navbar}}

@@ -1,22 +1,21 @@
 /*
- * @Date: 2021-03-11 11:46:46
+ * @Date: 2021-04-23 10:06:42
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-23 11:22:14
- * @FilePath: /monkey/controllers/base.go
+ * @LastEditTime: 2021-04-23 11:46:30
+ * @FilePath: /monkey/controllers/admin/base.go
  */
-package controllers
+package admin
 
 import (
 	"html/template"
 	"strconv"
 	"time"
 
-	"github.com/viletyy/monkey/model"
-	"github.com/viletyy/monkey/utils"
-
 	"github.com/beego/beego/v2/core/logs"
 	"github.com/beego/beego/v2/core/validation"
 	beego "github.com/beego/beego/v2/server/web"
+	"github.com/viletyy/monkey/model"
+	"github.com/viletyy/monkey/utils"
 )
 
 type Base struct {
@@ -34,10 +33,12 @@ func (c *Base) Finish() {
 }
 
 func (c *Base) Prepare() {
-	c.Layout = "layout/app.tpl"
+	c.TplPrefix = "admin/"
+	c.Layout = "layout/admin.tpl"
 	c.LayoutSections = make(map[string]string)
 	c.LayoutSections["Navbar"] = "shared/navbar.tpl"
 	c.LayoutSections["Notification"] = "shared/notification.tpl"
+	c.LayoutSections["Menu"] = "shared/admin_menu.tpl"
 	c.LayoutSections["Footer"] = "shared/footer.tpl"
 
 	// 启动时间

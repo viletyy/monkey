@@ -1,14 +1,17 @@
 /*
  * @Date: 2021-04-22 17:41:07
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-22 17:41:25
+ * @LastEditTime: 2021-04-23 13:58:49
  * @FilePath: /monkey/controllers/article.go
  */
 package controllers
 
-type ArticleController struct {
-	BaseController
+import "fmt"
+
+type Article struct {
+	Base
 }
 
-func (c *ArticleController) Index() {
+func (c *Article) Index() {
+	fmt.Println(c.TplName)
 }

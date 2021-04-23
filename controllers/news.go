@@ -6,9 +6,9 @@
  */
 package controllers
 
-type NewsController struct {
-	BaseController
+type News struct {
+	Base
 }
 
-func (c *NewsController) Index() {
+func (c *News) Index() {
 }
