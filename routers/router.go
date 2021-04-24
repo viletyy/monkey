@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-11 16:33:58
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-23 13:59:33
+ * @LastEditTime: 2021-04-24 15:41:18
  * @FilePath: /monkey/routers/router.go
  */
 package routers
@@ -25,8 +25,23 @@ func init() {
 
 	adminNs := beego.NewNamespace("/admin",
 		beego.NSRouter("/", &admin.Dashboard{}, "get:Index"),
+		beego.NSRouter("/plate", &admin.Plate{}, "get:Index"),
 		beego.NSRouter("/article", &admin.Article{}, "get:Index"),
+		beego.NSRouter("/news", &admin.News{}, "get:Index"),
+		beego.NSRouter("/tag", &admin.Tag{}, "get:Index"),
+		beego.NSRouter("/user", &admin.User{}, "get:Index"),
+		beego.NSRouter("/setting", &admin.Setting{}, "get:Index"),
+		beego.NSRouter("/banner", &admin.Banner{}, "get:Index"),
+		beego.NSRouter("/recommend", &admin.Recommend{}, "get:Index"),
 	)
 
 	beego.AddNamespace(adminNs)
+	_ = beego.AddFuncMap("isActiveController", isActiveController)
+}
+
+func isActiveController(parttern, controller string) string {
+	if parttern == controller {
+		return "is-active"
+	}
+	return ""
 }

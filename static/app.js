@@ -1,1 +1,0 @@
-import "./font-awesome/js/all"

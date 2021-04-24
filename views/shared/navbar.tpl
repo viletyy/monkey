@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-04-22 14:58:05
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-23 11:36:59
+ * @LastEditTime: 2021-04-24 15:31:16
  * @FilePath: /monkey/views/shared/navbar.tpl
 -->
 <nav class="navbar has-shadow">
@@ -24,23 +24,17 @@
           </div>
         </div>
         <a href="{{urlfor "Index.Index"}}" class="navbar-item
-          {{if eq .RouterPattern "/"}}
-          is-active 
-          {{end}}
+          {{isActiveController .RouterPattern "/" }}
           is-size-5 has-text-weight-semibold">
           首页
         </a>
         <a href="{{urlfor "Article.Index"}}" class="navbar-item
-          {{if eq .RouterPattern "/article"}}
-          is-active 
-          {{end}}
+          {{isActiveController .RouterPattern "/article" }}
           is-size-5 has-text-weight-semibold">
           文章
         </a>
         <a href="{{urlfor "News.Index"}}" class="navbar-item 
-          {{if eq .RouterPattern "/news"}}
-          is-active 
-          {{end}}
+          {{isActiveController .RouterPattern "/news" }}
           is-size-5 has-text-weight-semibold">
           资讯
         </a>

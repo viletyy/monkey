@@ -1,8 +1,8 @@
 <!--
  * @Date: 2021-03-12 14:44:54
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-22 18:10:01
- * @FilePath: /monkey/views/indexcontroller/index.tpl
+ * @LastEditTime: 2021-04-24 13:54:26
+ * @FilePath: /monkey/views/index/index.tpl
 -->
 <div class="container mb-6">
   <div class="columns">
@@ -13,10 +13,10 @@
       <hr>
       <div class="">
         <figure class="image my-3 is-256x256">
-          <img src="/static/banner1.jpeg">
+          <img src="/static/images/banner1.jpeg">
         </figure>
         <figure class="image my-3 is-256x256">
-          <img src="/static/banner2.jpeg">
+          <img src="/static/images/banner2.jpeg">
         </figure>
       </div>
       <hr>

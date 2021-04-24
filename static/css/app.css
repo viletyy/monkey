@@ -1,10 +1,10 @@
 @import 'normalize.min.css';
-@import 'bulma/css/bulma.min.css';
+@import '../bulma/css/bulma.min.css';
 @import 'overlay-scrollbars.min.css';
 @import 'os-theme-thin-dark.css';
 @import 'prism.css';
 @import 'cheatsheet.css';
-@import 'font-awesome/css/all.min.css';
+@import '../font-awesome/css/all.min.css';
 a {
   color: #3e8ed0;
   cursor: pointer;

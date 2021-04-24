@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-04-22 14:58:10
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-22 16:58:59
+ * @LastEditTime: 2021-04-24 13:53:29
  * @FilePath: /monkey/views/shared/footer.tpl
 -->
 <footer class="footer cta">
@@ -29,4 +29,4 @@
     </div>
   </div>
 </footer>
-<script src="/static/app-footer.js"></script>
+<script src="/static/js/app-footer.js"></script>

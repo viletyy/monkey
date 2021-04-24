@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-03-11 11:30:16
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-23 17:06:45
+ * @LastEditTime: 2021-04-24 14:29:06
  * @FilePath: /monkey/views/layout/app.tpl
 -->
 <!DOCTYPE html>
@@ -10,8 +10,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Monkey</title>
-  <script src="/static/app.js"></script>
-  <link rel="stylesheet" href="/static/app.css">
+  <link rel="stylesheet" href="/static/css/app.css">
+  <script src="/static/font-awesome/js/all.js"></script>
+  <script src="/static/js/app.js"></script>
 </head>
 <body>
 {{.Navbar}}

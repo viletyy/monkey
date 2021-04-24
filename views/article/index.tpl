@@ -1,8 +1,8 @@
 <!--
  * @Date: 2021-03-12 14:44:54
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-22 17:48:26
- * @FilePath: /monkey/views/articlecontroller/index.tpl
+ * @LastEditTime: 2021-04-24 14:31:56
+ * @FilePath: /monkey/views/article/index.tpl
 -->
 <div class="container mb-6">
   <div class="columns">
