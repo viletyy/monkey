@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-04-22 14:58:05
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-24 15:31:16
+ * @LastEditTime: 2021-04-25 23:12:56
  * @FilePath: /monkey/views/shared/navbar.tpl
 -->
 <nav class="navbar has-shadow">
@@ -17,16 +17,23 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="control has-icons-left">
-            <input class="input is-rounded" type="email" placeholder="搜索">
-            <span class="icon is-left">
-              <i class="fa fa-search"></i>
-            </span>
+            <form action="/search">
+              <input class="input is-rounded" type="text" placeholder="搜索">
+              <span class="icon is-left">
+                <i class="fa fa-search"></i>
+              </span>
+            </form>
           </div>
         </div>
         <a href="{{urlfor "Index.Index"}}" class="navbar-item
           {{isActiveController .RouterPattern "/" }}
           is-size-5 has-text-weight-semibold">
           首页
+        </a>
+        <a href="{{urlfor "Plate.Index"}}" class="navbar-item
+          {{isActiveController .RouterPattern "/plate" }}
+          is-size-5 has-text-weight-semibold">
+          板块
         </a>
         <a href="{{urlfor "Article.Index"}}" class="navbar-item
           {{isActiveController .RouterPattern "/article" }}
@@ -42,7 +49,7 @@
           {{if .IsLogin}}
             <a class="navbar-link">{{.User.Username}}</a>
             <div class="navbar-dropdown">
-              <a href="{{urlfor "User.Index"}}" class="navbar-item">个人中心</a>
+              <a href="{{urlfor "user.User.Index"}}" class="navbar-item">个人中心</a>
               {{if .IsAdmin}}
                 <a href="{{urlfor "admin.Dashboard.Index" }}" class="navbar-item">后台管理</a>
               {{end}}

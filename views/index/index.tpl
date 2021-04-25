@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-03-12 14:44:54
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-24 13:54:26
+ * @LastEditTime: 2021-04-25 10:06:03
  * @FilePath: /monkey/views/index/index.tpl
 -->
 <div class="container mb-6">
@@ -91,20 +91,24 @@
         <div class="columns">
           <div class="column is-3">
             <article>
-              <figure class="image is-5by3">
-                <img src="https://i.ibb.co/fq8hSGQ/placeholder-image-368x246.png" />
-              </figure>
-              <h2 class="subtitle">标题</h2>
-              <span class="tag is-rounded">标签</span>
+              <a href="{{urlfor "Article.Show" ":id" "1"}}">
+                <figure class="image is-5by3">
+                  <img src="https://i.ibb.co/fq8hSGQ/placeholder-image-368x246.png" />
+                </figure>
+                <h2 class="subtitle">标题</h2>
+                <span class="tag is-rounded">标签</span>
+              </a>
             </article>
           </div>
           <div class="column is-3">
             <article>
-              <figure class="image is-5by3">
-                <img src="https://i.ibb.co/fq8hSGQ/placeholder-image-368x246.png" />
-              </figure>
-              <h2 class="subtitle">标题</h2>
-              <span class="tag is-rounded">标签</span>
+              <a href="{{urlfor "News.Show" ":id" "1"}}">
+                <figure class="image is-5by3">
+                  <img src="https://i.ibb.co/fq8hSGQ/placeholder-image-368x246.png" />
+                </figure>
+                <h2 class="subtitle">标题</h2>
+                <span class="tag is-rounded">标签</span>
+              </a>
             </article>
           </div>
           <div class="column is-3">

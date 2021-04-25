@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-11 10:26:08
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-23 11:22:41
+ * @LastEditTime: 2021-04-25 22:43:01
  * @FilePath: /monkey/controllers/user.go
  */
 package controllers
@@ -17,10 +17,6 @@ import (
 
 type User struct {
 	Base
-}
-
-func (c *User) Index() {
-
 }
 
 func (c *User) Login() {

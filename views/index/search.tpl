@@ -1,8 +1,8 @@
 <!--
  * @Date: 2021-04-22 14:11:25
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-22 17:11:33
- * @FilePath: /monkey/views/indexcontroller/search.tpl
+ * @LastEditTime: 2021-04-25 23:17:16
+ * @FilePath: /monkey/views/index/search.tpl
 -->
 <section class="hero is-info">
   <div class="hero-body">
@@ -11,13 +11,15 @@
               <div class="card-content">
                   <div class="content">
                       <div class="control has-icons-left has-icons-right">
-                          <input class="input is-large" type="search"/>
+                        <form action="/search">
+                          <input class="input is-normal" type="search"/>
                           <span class="icon is-medium is-left">
                               <i class="fa fa-search"></i>
                           </span>
                           <span class="icon is-medium is-right">
                               <i class="fa fa-empire"></i>
                           </span>
+                        </form>
                       </div>
                   </div>
               </div>
@@ -30,11 +32,6 @@
   <div class="columns is-multiline features">
     <div class="column is-4">
       <div class="card">
-        <div class="card-image">
-          <figure class="image is-4by3">
-            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-          </figure>
-        </div>
         <div class="card-content">
           <div class="media">
             <div class="media-left">
@@ -43,28 +40,32 @@
               </figure>
             </div>
             <div class="media-content">
-              <p class="title is-4">John Smith</p>
-              <p class="subtitle is-6">@johnsmith</p>
+              <p class="title is-4">我是标题s</p>
+              <p class="subtitle is-6">viletyy</p>
             </div>
           </div>
       
           <div class="content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-            <a href="#">#css</a> <a href="#">#responsive</a>
-            <br>
-            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Phasellus nec iaculis mauris. </p>
+            <br>  
+            <div class="block">
+              <span class="tag is-black is-normal">文章</span>          
+            </div>
+            <div class="block">
+              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+            </div>
           </div>
         </div>
         <footer class="card-footer">
           <p class="card-footer-item">
             <span>
-              View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
+              <a href="{{urlfor "Article.Show" ":id" "1"}}">查看详情</a>
             </span>
           </p>
           <p class="card-footer-item">
             <span>
-              Share on <a href="#">Facebook</a>
+              <a href="">分享</a>
             </span>
           </p>
         </footer>
@@ -72,11 +73,6 @@
     </div>
     <div class="column is-4">
       <div class="card">
-        <div class="card-image">
-          <figure class="image is-4by3">
-            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-          </figure>
-        </div>
         <div class="card-content">
           <div class="media">
             <div class="media-left">
@@ -85,28 +81,32 @@
               </figure>
             </div>
             <div class="media-content">
-              <p class="title is-4">John Smith</p>
-              <p class="subtitle is-6">@johnsmith</p>
+              <p class="title is-4">我是标题s</p>
+              <p class="subtitle is-6">viletyy</p>
             </div>
           </div>
       
           <div class="content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-            <a href="#">#css</a> <a href="#">#responsive</a>
-            <br>
-            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Phasellus nec iaculis mauris. </p>
+            <br>  
+            <div class="block">
+              <span class="tag is-black is-normal">文章</span>          
+            </div>
+            <div class="block">
+              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+            </div>
           </div>
         </div>
         <footer class="card-footer">
           <p class="card-footer-item">
             <span>
-              View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
+              <a href="{{urlfor "Article.Show" ":id" "1"}}">查看详情</a>
             </span>
           </p>
           <p class="card-footer-item">
             <span>
-              Share on <a href="#">Facebook</a>
+              <a href="">分享</a>
             </span>
           </p>
         </footer>
@@ -114,11 +114,6 @@
     </div>
     <div class="column is-4">
       <div class="card">
-        <div class="card-image">
-          <figure class="image is-4by3">
-            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-          </figure>
-        </div>
         <div class="card-content">
           <div class="media">
             <div class="media-left">
@@ -127,28 +122,32 @@
               </figure>
             </div>
             <div class="media-content">
-              <p class="title is-4">John Smith</p>
-              <p class="subtitle is-6">@johnsmith</p>
+              <p class="title is-4">我是标题s</p>
+              <p class="subtitle is-6">viletyy</p>
             </div>
           </div>
       
           <div class="content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-            <a href="#">#css</a> <a href="#">#responsive</a>
-            <br>
-            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Phasellus nec iaculis mauris. </p>
+            <br>  
+            <div class="block">
+              <span class="tag is-black is-normal">文章</span>          
+            </div>
+            <div class="block">
+              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+            </div>
           </div>
         </div>
         <footer class="card-footer">
           <p class="card-footer-item">
             <span>
-              View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
+              <a href="{{urlfor "Article.Show" ":id" "1"}}">查看详情</a>
             </span>
           </p>
           <p class="card-footer-item">
             <span>
-              Share on <a href="#">Facebook</a>
+              <a href="">分享</a>
             </span>
           </p>
         </footer>
@@ -156,11 +155,6 @@
     </div>
     <div class="column is-4">
       <div class="card">
-        <div class="card-image">
-          <figure class="image is-4by3">
-            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-          </figure>
-        </div>
         <div class="card-content">
           <div class="media">
             <div class="media-left">
@@ -169,28 +163,32 @@
               </figure>
             </div>
             <div class="media-content">
-              <p class="title is-4">John Smith</p>
-              <p class="subtitle is-6">@johnsmith</p>
+              <p class="title is-4">我是标题s</p>
+              <p class="subtitle is-6">viletyy</p>
             </div>
           </div>
       
           <div class="content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-            <a href="#">#css</a> <a href="#">#responsive</a>
-            <br>
-            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Phasellus nec iaculis mauris. </p>
+            <br>  
+            <div class="block">
+              <span class="tag is-black is-normal">文章</span>          
+            </div>
+            <div class="block">
+              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+            </div>
           </div>
         </div>
         <footer class="card-footer">
           <p class="card-footer-item">
             <span>
-              View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
+              <a href="{{urlfor "Article.Show" ":id" "1"}}">查看详情</a>
             </span>
           </p>
           <p class="card-footer-item">
             <span>
-              Share on <a href="#">Facebook</a>
+              <a href="">分享</a>
             </span>
           </p>
         </footer>

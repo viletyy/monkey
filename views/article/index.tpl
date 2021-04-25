@@ -1,13 +1,19 @@
 <!--
  * @Date: 2021-03-12 14:44:54
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-24 14:31:56
+ * @LastEditTime: 2021-04-25 22:34:38
  * @FilePath: /monkey/views/article/index.tpl
 -->
 <div class="container mb-6">
   <div class="columns">
     <div class="column is-12">
       <section class="featured">
+        <nav class="breadcrumb is-medium" aria-label="breadcrumbs">
+          <ul>
+            <li><a href="{{urlfor "Index.Index"}}">首页</a></li>
+            <li class="is-active"><a href="#" aria-current="page">文章</a></li>
+          </ul>
+        </nav>
         <div class="level">
           <div class="level-left">
             <div class="level-item">

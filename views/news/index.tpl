@@ -1,13 +1,19 @@
 <!--
  * @Date: 2021-03-12 14:44:54
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-22 17:49:36
- * @FilePath: /monkey/views/newscontroller/index.tpl
+ * @LastEditTime: 2021-04-25 22:34:50
+ * @FilePath: /monkey/views/news/index.tpl
 -->
 <div class="container mb-6">
   <div class="columns">
     <div class="column is-12">
       <section class="featured">
+        <nav class="breadcrumb is-medium" aria-label="breadcrumbs">
+          <ul>
+            <li><a href="{{urlfor "Index.Index"}}">首页</a></li>
+            <li class="is-active"><a href="#" aria-current="page">资讯</a></li>
+          </ul>
+        </nav>
         <div class="level">
           <div class="level-left">
             <div class="level-item">

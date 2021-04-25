@@ -1,10 +1,4 @@
-/*
- * @Date: 2021-04-23 10:06:42
- * @LastEditors: viletyy
- * @LastEditTime: 2021-04-25 23:06:52
- * @FilePath: /monkey/controllers/admin/base.go
- */
-package admin
+package user
 
 import (
 	"html/template"
@@ -33,12 +27,12 @@ func (c *Base) Finish() {
 }
 
 func (c *Base) Prepare() {
-	c.TplPrefix = "admin/"
+	c.TplPrefix = "user/"
 	c.Layout = "layout/admin.tpl"
 	c.LayoutSections = make(map[string]string)
 	c.LayoutSections["Navbar"] = "shared/navbar.tpl"
 	c.LayoutSections["Notification"] = "shared/notification.tpl"
-	c.LayoutSections["Menu"] = "shared/admin_menu.tpl"
+	c.LayoutSections["Menu"] = "shared/user_menu.tpl"
 	c.LayoutSections["Footer"] = "shared/footer.tpl"
 
 	// 启动时间
@@ -70,8 +64,8 @@ func (c *Base) Prepare() {
 	c.Data["IsLogin"] = isLogin
 	c.Data["IsAdmin"] = isAdmin
 
-	if !isAdmin {
-		c.RedirectTo("/user")
+	if !isLogin {
+		c.RedirectTo("/login")
 	}
 }
 
