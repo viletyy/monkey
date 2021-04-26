@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-09 09:57:02
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-22 09:38:40
+ * @LastEditTime: 2021-04-26 17:31:57
  * @FilePath: /monkey/model/user.go
  */
 package model
@@ -21,13 +21,12 @@ type User struct {
 func GetUsers(search *global.Search) (searchResult global.SearchResult, err error) {
 	var users []User
 	offset := search.PageInfo.PageSize * (search.PageInfo.Page - 1)
-	limit := search.PageInfo.Page
-	db := global.DB.Where(search.Maps)
-	err = db.Count(&searchResult.Total).Error
+	limit := search.PageInfo.PageSize
+	err = global.DB.Where(search.Maps).Find(&users).Count(&searchResult.Total).Error
 	if err != nil {
 		return
 	}
-	err = db.Offset(offset).Limit(limit).Find(&users).Error
+	err = global.DB.Where(search.Maps).Offset(offset).Limit(limit).Find(&users).Error
 	if err != nil {
 		return
 	}
@@ -42,16 +41,10 @@ func GetUserById(id int) (user User, err error) {
 	return
 }
 
-func GetUserByUsername(username string) (user User, err error) {
-	err = global.DB.Where("username = ?", username).First(&user).Error
-	return
-}
-
-func ExistByUsername(username string) bool {
-	var user User
+func ExistByUsername(username string) (user User, isExist bool) {
 	global.DB.Where("username = ?", username).First(&user)
 
-	return user.ID > 0
+	return user, user.ID > 0
 }
 
 func CreateUser(user User) (err error) {

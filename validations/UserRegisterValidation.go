@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-12 17:25:57
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-22 09:34:20
+ * @LastEditTime: 2021-04-26 13:53:53
  * @FilePath: /monkey/validations/UserRegisterValidation.go
  */
 package validations
@@ -19,13 +19,13 @@ type UserRegisterValidation struct {
 }
 
 func (urv *UserRegisterValidation) Valid(valid *validation.Validation) {
-	if urv.Password != urv.PasswordConfirmation {
-		valid.SetError("password", "两次输入密码不一致")
+	if urv.PasswordConfirmation != "" && urv.Password != urv.PasswordConfirmation {
+		_ = valid.SetError("password", "两次输入密码不一致")
 		return
 	}
 
-	if model.ExistByUsername(urv.Username) {
-		valid.SetError("username", "用户名已经存在")
+	if _, isExsit := model.ExistByUsername(urv.Username); !isExsit {
+		_ = valid.SetError("username", "用户名已经存在")
 		return
 	}
 }

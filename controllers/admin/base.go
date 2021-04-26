@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-23 10:06:42
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-25 23:06:52
+ * @LastEditTime: 2021-04-26 18:24:58
  * @FilePath: /monkey/controllers/admin/base.go
  */
 package admin
@@ -14,6 +14,7 @@ import (
 	"github.com/beego/beego/v2/core/logs"
 	"github.com/beego/beego/v2/core/validation"
 	beego "github.com/beego/beego/v2/server/web"
+	"github.com/viletyy/monkey/global"
 	"github.com/viletyy/monkey/model"
 	"github.com/viletyy/monkey/utils"
 )
@@ -146,4 +147,25 @@ func (c *Base) ErrorHandler(err error) {
 func (c *Base) Back() {
 	c.RedirectTo(c.Ctx.Request.Referer())
 	c.StopRun()
+}
+
+// 默认分页参数
+func (c *Base) PageInfo() (pageInfo global.PageInfo) {
+	var err error
+	pageInfo.Page, err = c.GetInt("page")
+	if pageInfo.Page <= 0 || err != nil {
+		pageInfo.Page = 1
+	}
+	pageInfo.PageSize, err = c.GetInt("per")
+	if pageInfo.PageSize <= 0 || pageInfo.PageSize > 15 || err != nil {
+		pageInfo.PageSize = 15
+	}
+	return
+}
+
+func (c *Base) ResponseWithResult(searchResult global.SearchResult) {
+	c.Data["Total"] = searchResult.Total
+	c.Data["Page"] = searchResult.Page
+	c.Data["PageSize"] = searchResult.PageSize
+	c.Data["List"] = searchResult.List
 }

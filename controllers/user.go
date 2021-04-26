@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-11 10:26:08
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-25 22:43:01
+ * @LastEditTime: 2021-04-26 13:50:10
  * @FilePath: /monkey/controllers/user.go
  */
 package controllers
@@ -30,13 +30,11 @@ func (c *User) LoginHandle() {
 	loginUser := validations.UserLoginValidation{}
 	c.ValidatorAuto(&loginUser)
 
-	isExist := model.ExistByUsername(loginUser.Username)
+	dbUser, isExist := model.ExistByUsername(loginUser.Username)
 	if !isExist {
 		c.FlashError("用户不存在")
 		c.RedirectTo(c.RedirectUrl)
 	}
-
-	dbUser, _ := model.GetUserByUsername(loginUser.Username)
 
 	if !dbUser.CheckPassword(loginUser.Password) {
 		c.FlashError("密码不正确")

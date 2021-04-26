@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-04-23 13:56:41
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-24 15:44:09
+ * @LastEditTime: 2021-04-26 18:38:00
  * @FilePath: /monkey/views/admin/user/index.tpl
 -->
 <div class="box">
@@ -13,14 +13,31 @@
       <div class="table-container">
         <table class="table is-fullwidth">
           <thead>
-            <th>id</th>
-            <th>name</th>
+            <th>ID</th>
+            <th>用户名</th>
+            <th>管理员</th>
+            <th>操作</th>
           </thead>
           <tbody>
+            {{ range $index, $user := .List }}
             <tr>
-              <td>1</td>
-              <td>dslkfj</td>
+              <td>{{$user.ID}}</td>
+              <td>{{$user.Username}}</td>
+              <td>
+                {{ if eq true $user.IsAdmin }}
+                  是
+                {{ else }}
+                  否
+                {{ end }}
+              </td>
+              <td>
+              </td>
             </tr>
+            {{ else }}
+              <tr>
+                <th colspan="4">暂无数据</th>
+              </tr>
+            {{ end }}
           </tbody>
         </table>
       </div>
