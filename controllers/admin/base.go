@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-23 10:06:42
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-26 18:24:58
+ * @LastEditTime: 2021-04-27 21:25:17
  * @FilePath: /monkey/controllers/admin/base.go
  */
 package admin
@@ -17,6 +17,7 @@ import (
 	"github.com/viletyy/monkey/global"
 	"github.com/viletyy/monkey/model"
 	"github.com/viletyy/monkey/utils"
+	"github.com/viletyy/yolk"
 )
 
 type Base struct {
@@ -164,8 +165,7 @@ func (c *Base) PageInfo() (pageInfo global.PageInfo) {
 }
 
 func (c *Base) ResponseWithResult(searchResult global.SearchResult) {
-	c.Data["Total"] = searchResult.Total
-	c.Data["Page"] = searchResult.Page
-	c.Data["PageSize"] = searchResult.PageSize
+	p := yolk.NewPaginator(c.Ctx.Request, searchResult.PageSize, searchResult.Total)
+	c.Data["paginator"] = p
 	c.Data["List"] = searchResult.List
 }

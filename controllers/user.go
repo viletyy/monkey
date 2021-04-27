@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-11 10:26:08
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-26 13:50:10
+ * @LastEditTime: 2021-04-27 16:49:51
  * @FilePath: /monkey/controllers/user.go
  */
 package controllers
@@ -9,8 +9,9 @@ package controllers
 import (
 	"github.com/viletyy/monkey/model"
 	"github.com/viletyy/monkey/utils"
-	"github.com/viletyy/monkey/utils/crypt"
 	"github.com/viletyy/monkey/validations"
+	"github.com/viletyy/yolk"
+	"github.com/viletyy/yolk/crypt"
 
 	beego "github.com/beego/beego/v2/server/web"
 )
@@ -42,10 +43,10 @@ func (c *User) LoginHandle() {
 	}
 
 	if c.GetString("remember_me") != "" {
-		c.Ctx.SetCookie("login_user_id", utils.ToString(dbUser.ID), 3600*24*7)
+		c.Ctx.SetCookie("login_user_id", yolk.ToString(dbUser.ID), 3600*24*7)
 		c.Ctx.SetCookie("login_user_sign", utils.AuthSign(int(dbUser.ID), dbUser.Username, dbUser.Password), 3600*24*7)
 	} else {
-		c.Ctx.SetCookie("login_user_id", utils.ToString(dbUser.ID), 3600)
+		c.Ctx.SetCookie("login_user_id", yolk.ToString(dbUser.ID), 3600)
 		c.Ctx.SetCookie("login_user_sign", utils.AuthSign(int(dbUser.ID), dbUser.Username, dbUser.Password), 3600)
 	}
 

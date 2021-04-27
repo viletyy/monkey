@@ -1,14 +1,14 @@
 /*
  * @Date: 2021-03-09 09:57:02
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-26 17:31:57
+ * @LastEditTime: 2021-04-27 16:48:58
  * @FilePath: /monkey/model/user.go
  */
 package model
 
 import (
 	"github.com/viletyy/monkey/global"
-	"github.com/viletyy/monkey/utils/crypt"
+	"github.com/viletyy/yolk/crypt"
 )
 
 type User struct {

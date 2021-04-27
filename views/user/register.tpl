@@ -1,8 +1,8 @@
 <!--
  * @Date: 2021-03-12 16:03:03
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-22 17:39:41
- * @FilePath: /monkey/views/usercontroller/register.tpl
+ * @LastEditTime: 2021-04-27 18:41:57
+ * @FilePath: /monkey/views/user/register.tpl
 -->
 <!--
  * @Date: 2021-03-12 14:48:43
@@ -20,7 +20,7 @@
         <p class="title">
           注册用户
         </p>
-        <form action="{{urlfor "UserController.RegisterHandle"}}" class="box" method="post">
+        <form action="{{urlfor "User.RegisterHandle"}}" class="box" method="post">
           {{ .xsrfdata }}
           <div class="field">
             <label class="label" for="username">用户名：</label>

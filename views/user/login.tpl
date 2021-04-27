@@ -14,7 +14,7 @@
         <p class="title">
           登陆用户
         </p>
-        <form action="{{urlfor "UserController.LoginHandle"}}" class="box" method="post">
+        <form action="{{urlfor "User.LoginHandle"}}" class="box" method="post">
           {{ .xsrfdata }}
           <div class="field">
             <label class="label" for="username">用户名：</label>

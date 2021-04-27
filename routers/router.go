@@ -1,20 +1,23 @@
 /*
  * @Date: 2021-03-11 16:33:58
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-25 22:55:14
+ * @LastEditTime: 2021-04-27 22:45:59
  * @FilePath: /monkey/routers/router.go
  */
 package routers
 
 import (
+	"strings"
+
 	"github.com/viletyy/monkey/controllers"
-	"github.com/viletyy/monkey/controllers/admin"
-	"github.com/viletyy/monkey/controllers/user"
 
 	beego "github.com/beego/beego/v2/server/web"
+	"github.com/beego/beego/v2/server/web/context"
 )
 
 func init() {
+	beego.InsertFilter("*", beego.BeforeRouter, filterMethod)
+	_ = beego.AddFuncMap("isActiveController", isActiveController)
 	beego.Router("/", &controllers.Index{}, "get:Index")
 	beego.Router("/search", &controllers.Index{}, "get:Search")
 	beego.Router("/article", &controllers.Article{}, "get:Index")
@@ -26,30 +29,6 @@ func init() {
 	beego.Router("/login", &controllers.User{}, "get:Login;post:LoginHandle")
 	beego.Router("/register", &controllers.User{}, "get:Register;post:RegisterHandle")
 	beego.Router("/loginout", &controllers.User{}, "get:Loginout")
-
-	userNs := beego.NewNamespace("/user",
-		beego.NSRouter("/", &user.User{}, "get:Index"),
-		beego.NSRouter("/article", &user.Article{}, "get:Index;post:Create"),
-		beego.NSRouter("/article/:id", &user.Article{}, "put:Update;delete:Destroy"),
-		beego.NSRouter("/article/new", &user.Article{}, "get:New"),
-		beego.NSRouter("/article/:id/edit", &user.Article{}, "get:Edit"),
-	)
-	beego.AddNamespace(userNs)
-
-	adminNs := beego.NewNamespace("/admin",
-		beego.NSRouter("/", &admin.Dashboard{}, "get:Index"),
-		beego.NSRouter("/plate", &admin.Plate{}, "get:Index"),
-		beego.NSRouter("/article", &admin.Article{}, "get:Index"),
-		beego.NSRouter("/news", &admin.News{}, "get:Index"),
-		beego.NSRouter("/tag", &admin.Tag{}, "get:Index"),
-		beego.NSRouter("/user", &admin.User{}, "get:Index"),
-		beego.NSRouter("/setting", &admin.Setting{}, "get:Index"),
-		beego.NSRouter("/banner", &admin.Banner{}, "get:Index"),
-		beego.NSRouter("/recommend", &admin.Recommend{}, "get:Index"),
-	)
-
-	beego.AddNamespace(adminNs)
-	_ = beego.AddFuncMap("isActiveController", isActiveController)
 }
 
 func isActiveController(parttern, controller string) string {
@@ -57,4 +36,10 @@ func isActiveController(parttern, controller string) string {
 		return "is-active"
 	}
 	return ""
+}
+
+func filterMethod(ctx *context.Context) {
+	if ctx.Input.Query("_method") != "" && ctx.Input.IsPost() {
+		ctx.Request.Method = strings.ToUpper(ctx.Input.Query("_method"))
+	}
 }

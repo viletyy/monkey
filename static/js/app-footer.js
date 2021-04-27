@@ -1,8 +1,8 @@
 /*
  * @Date: 2021-04-07 10:04:32
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-23 11:30:07
- * @FilePath: /monkey/static/app-footer.js
+ * @LastEditTime: 2021-04-27 23:35:19
+ * @FilePath: /monkey/static/js/app-footer.js
  */
 document.addEventListener('DOMContentLoaded', () => {
   (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
@@ -18,3 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
     $flashNotification.parentNode.removeChild($flashNotification)
   }, 3000);
 });
+
+$(function(){
+  $(".form-link").click(function(){
+    var href = $(this).data("href");
+    $("input[name='_method']").val($(this).data("method"))
+    $("#link-form").attr("action", href).submit();
+
+    return false
+   })
+})

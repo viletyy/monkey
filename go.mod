@@ -12,6 +12,7 @@ require (
 	github.com/onsi/ginkgo v1.16.0 // indirect
 	github.com/onsi/gomega v1.11.0 // indirect
 	github.com/stretchr/testify v1.6.1 // indirect
+	github.com/viletyy/yolk v1.0.0
 	go.uber.org/zap v1.16.0
 	golang.org/x/text v0.3.4 // indirect
 )

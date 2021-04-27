@@ -1,17 +1,23 @@
 <!--
  * @Date: 2021-04-23 13:56:41
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-26 18:38:00
+ * @LastEditTime: 2021-04-27 23:42:24
  * @FilePath: /monkey/views/admin/user/index.tpl
 -->
+<nav class="breadcrumb" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="{{urlfor "admin.Dashboard.Index"}}" aria-current="page">仪表板</a></li>
+    <li class="is-active"><a aria-current="page">用户管理</a></li>
+  </ul>
+</nav>
 <div class="box">
-  <button type="button" class="button is-info">新用户</button>
+  <a href="{{urlfor "admin.User.New"}}" class="button is-info">添加用户</a>
 </div>
 <div class="content box is-medium">
   <div class="card no-shadow">
     <div class="card-body">
       <div class="table-container">
-        <table class="table is-fullwidth">
+        <table class="table is-fullwidt">
           <thead>
             <th>ID</th>
             <th>用户名</th>
@@ -31,12 +37,28 @@
                 {{ end }}
               </td>
               <td>
+                <div class="buttons" style="width: 250px;">
+                  <a href="{{urlfor "admin.User.Edit" ":id" $user.ID}}" class="button is-success is-small">
+                    <span class="icon">
+                      <i class="fas fa-edit"></i>
+                    </span>
+                    <span>修改</span>
+                  </a>
+                  <button data-method="put" data-href="{{urlfor "admin.User.Reset" ":id" $user.ID}}" class="form-link button is-warning is-small">
+                    <span class="icon">
+                      <i class="fas fa-cog"></i>
+                    </span>
+                    <span>重置密码</span>
+                  </button>
+                  <button data-method="delete" data-href="{{urlfor "admin.User.Destroy" ":id" $user.ID}}" class="form-link button is-danger is-small">
+                    <span class="icon">
+                      <i class="fas fa-trash"></i>
+                    </span>
+                    <span>删除</span>
+                  </button>
+                </div>
               </td>
             </tr>
-            {{ else }}
-              <tr>
-                <th colspan="4">暂无数据</th>
-              </tr>
             {{ end }}
           </tbody>
         </table>
@@ -44,16 +66,4 @@
     </div>
   </div>
 </div>
-<nav class="pagination if-info is-medium is-centered box" role="navigation" aria-label="pagination">
-  <a class="pagination-previous">Previous</a>
-  <a class="pagination-next">Next page</a>
-  <ul class="pagination-list">
-    <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
-    <li><span class="pagination-ellipsis">&hellip;</span></li>
-    <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-    <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
-    <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
-    <li><span class="pagination-ellipsis">&hellip;</span></li>
-    <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
-  </ul>
-</nav>
+{{template "shared/paginator.html" .}}

@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-12 16:28:24
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-22 09:34:45
+ * @LastEditTime: 2021-04-27 16:31:50
  * @FilePath: /monkey/utils/auth.go
  */
 package utils
@@ -9,7 +9,7 @@ package utils
 import (
 	"strconv"
 
-	"github.com/viletyy/monkey/utils/crypt"
+	"github.com/viletyy/yolk/crypt"
 
 	beego "github.com/beego/beego/v2/server/web"
 )

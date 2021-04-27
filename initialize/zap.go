@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-07 10:36:48
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-22 09:38:19
+ * @LastEditTime: 2021-04-27 16:50:35
  * @FilePath: /monkey/initialize/zap.go
  */
 package initialize
@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/viletyy/monkey/conf/config"
+	"github.com/viletyy/yolk"
 
 	"github.com/viletyy/monkey/utils"
 	"go.uber.org/zap"
@@ -22,7 +23,7 @@ var level zapcore.Level
 var zapConfig = config.InitZapConfig()
 
 func Zap() (logger *zap.Logger) {
-	if err := utils.CreateDir(zapConfig.Director); err != nil {
+	if err := yolk.CreateDir(zapConfig.Director); err != nil {
 		fmt.Printf("Create Zap Dir err:%v", err.Error())
 	}
 
