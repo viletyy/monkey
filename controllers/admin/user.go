@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-24 15:40:34
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-28 21:30:50
+ * @LastEditTime: 2021-04-28 22:35:47
  * @FilePath: /monkey/controllers/admin/user.go
  */
 package admin
@@ -62,7 +62,7 @@ func (c *User) Create() {
 	}
 
 	if err := model.CreateUser(&dbUser); err == nil {
-		c.FlashSuccess("添加成功")
+		c.FlashSuccess("添加用户成功")
 		c.RedirectTo("/admin/user")
 	} else {
 		c.FlashError(err.Error())
@@ -72,7 +72,10 @@ func (c *User) Create() {
 
 func (c *User) Edit() {
 	var userId int
-	_ = c.Ctx.Input.Bind(&userId, ":id")
+	err := c.Ctx.Input.Bind(&userId, ":id")
+	if err != nil {
+		c.ErrorHandler(err)
+	}
 	if dbUser, err := model.GetUserById(userId); err != nil {
 		c.ErrorHandler(err)
 	} else {
@@ -82,7 +85,10 @@ func (c *User) Edit() {
 
 func (c *User) Update() {
 	var userId int
-	_ = c.Ctx.Input.Bind(&userId, ":id")
+	err := c.Ctx.Input.Bind(&userId, ":id")
+	if err != nil {
+		c.ErrorHandler(err)
+	}
 	c.RedirectUrl = beego.URLFor("admin.User.Edit", ":id", userId)
 	if dbUser, err := model.GetUserById(userId); err != nil {
 		c.ErrorHandler(err)

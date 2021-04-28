@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-28 14:05:51
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-28 21:57:37
+ * @LastEditTime: 2021-04-28 23:35:13
  * @FilePath: /monkey/model/tag.go
  */
 package model
@@ -13,7 +13,7 @@ type Tag struct {
 	Name string `json:"name"`
 }
 
-func GetTags(search *global.Search) (searchResult *global.SearchResult, err error) {
+func GetTags(search *global.Search) (searchResult global.SearchResult, err error) {
 	var tags []Tag
 	offset := search.PageSize * (search.Page - 1)
 	limit := search.PageSize

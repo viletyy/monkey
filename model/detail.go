@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-28 14:08:12
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-28 21:35:15
+ * @LastEditTime: 2021-04-28 22:23:37
  * @FilePath: /monkey/model/detail.go
  */
 package model
@@ -23,9 +23,9 @@ type Detail struct {
 	Content    string     `json:"content"`
 	DetailType DetailType `json:"detail_type"`
 	Tags       []Tag      `json:"tags" gorm:"many2many:detail_tags"`
-	UserID     int        `json:"user_id"`
+	UserID     uint       `json:"user_id"`
 	User       User       `json:"user" gorm:"association_autoupdate:false"`
-	PlateID    int        `json:"plate_id"`
+	PlateID    uint       `json:"plate_id"`
 	Plate      Plate      `json:"plate" gorm:"association_autoupdate:false"`
 	Recommend  bool       `json:"recommend"`
 }

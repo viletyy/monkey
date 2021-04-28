@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-28 15:26:46
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-28 21:37:16
+ * @LastEditTime: 2021-04-28 23:40:00
  * @FilePath: /monkey/model/plate.go
  */
 package model
@@ -10,11 +10,12 @@ import "github.com/viletyy/monkey/global"
 
 type Plate struct {
 	global.Model
-	Name         string   `json:"name"`
-	Recommend    bool     `json:"recommend"`
-	ArticleCount int      `json:"article_count" gorm:"default: 0"`
-	NewsCount    int      `json:"news_count" gorm:"default: 0"`
-	Details      []Detail `json:"details"`
+	Name             string   `json:"name"`
+	ArticleRecommend bool     `json:"article_recommend" gorm:"default: false"`
+	ArticleCount     int      `json:"article_count" gorm:"default: 0"`
+	NewsRecommend    bool     `json:"news_recommend" gorm:"default: false"`
+	NewsCount        int      `json:"news_count" gorm:"default: 0"`
+	Details          []Detail `json:"details"`
 }
 
 func GetPlates(search *global.Search) (searchResult global.SearchResult, err error) {
