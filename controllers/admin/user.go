@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-24 15:40:34
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-27 23:40:17
+ * @LastEditTime: 2021-04-28 21:30:50
  * @FilePath: /monkey/controllers/admin/user.go
  */
 package admin
@@ -35,7 +35,7 @@ func (c *User) Index() {
 	}
 
 	if searchResult, err := model.GetUsers(&search); err == nil {
-		c.ResponseWithResult(searchResult)
+		c.ResponseWithResult(&searchResult)
 	} else {
 		c.FlashError("加载列表失败")
 	}
@@ -61,7 +61,7 @@ func (c *User) Create() {
 		IsAdmin:  createUser.IsAdmin,
 	}
 
-	if err := model.CreateUser(dbUser); err == nil {
+	if err := model.CreateUser(&dbUser); err == nil {
 		c.FlashSuccess("添加成功")
 		c.RedirectTo("/admin/user")
 	} else {

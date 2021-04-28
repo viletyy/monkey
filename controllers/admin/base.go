@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-23 10:06:42
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-27 21:25:17
+ * @LastEditTime: 2021-04-28 21:30:23
  * @FilePath: /monkey/controllers/admin/base.go
  */
 package admin
@@ -164,7 +164,7 @@ func (c *Base) PageInfo() (pageInfo global.PageInfo) {
 	return
 }
 
-func (c *Base) ResponseWithResult(searchResult global.SearchResult) {
+func (c *Base) ResponseWithResult(searchResult *global.SearchResult) {
 	p := yolk.NewPaginator(c.Ctx.Request, searchResult.PageSize, searchResult.Total)
 	c.Data["paginator"] = p
 	c.Data["List"] = searchResult.List

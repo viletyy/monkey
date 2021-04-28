@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-11 10:26:08
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-27 16:49:51
+ * @LastEditTime: 2021-04-28 21:15:21
  * @FilePath: /monkey/controllers/user.go
  */
 package controllers
@@ -68,7 +68,7 @@ func (c *User) RegisterHandle() {
 		Password: crypt.Md5Encode(registerUser.Password),
 	}
 
-	if err := model.CreateUser(dbUser); err != nil {
+	if err := model.CreateUser(&dbUser); err != nil {
 		c.FlashError("注册失败")
 		c.RedirectTo(c.RedirectUrl)
 	} else {

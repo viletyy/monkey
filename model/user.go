@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-09 09:57:02
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-27 16:48:58
+ * @LastEditTime: 2021-04-28 21:32:53
  * @FilePath: /monkey/model/user.go
  */
 package model
@@ -13,15 +13,17 @@ import (
 
 type User struct {
 	global.Model
-	Username string `json:"username"`
-	Password string `json:"-"`
-	IsAdmin  bool   `json:"is_admin" gorm:"default: false"`
+	Username string   `json:"username"`
+	Password string   `json:"-"`
+	IsAdmin  bool     `json:"is_admin" gorm:"default: false"`
+	Details  []Detail `json:"details"`
+	Files    []File   `json:"files"`
 }
 
 func GetUsers(search *global.Search) (searchResult global.SearchResult, err error) {
 	var users []User
-	offset := search.PageInfo.PageSize * (search.PageInfo.Page - 1)
-	limit := search.PageInfo.PageSize
+	offset := search.PageSize * (search.Page - 1)
+	limit := search.PageSize
 	err = global.DB.Where(search.Maps).Find(&users).Count(&searchResult.Total).Error
 	if err != nil {
 		return
@@ -47,7 +49,7 @@ func ExistByUsername(username string) (user User, isExist bool) {
 	return user, user.ID > 0
 }
 
-func CreateUser(user User) (err error) {
+func CreateUser(user *User) (err error) {
 	err = global.DB.Create(&user).Error
 
 	return

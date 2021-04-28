@@ -1,8 +1,8 @@
 /*
  * @Date: 2021-03-09 09:57:02
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-07 10:14:54
- * @FilePath: /egg/initialize/gorm.go
+ * @LastEditTime: 2021-04-28 16:55:21
+ * @FilePath: /monkey/initialize/gorm.go
  */
 package initialize
 
@@ -59,7 +59,16 @@ func GormSet(db *gorm.DB) {
 	db.LogMode(true)
 
 	// 设置迁移
-	db.AutoMigrate(&model.User{})
+	db.AutoMigrate(
+		&model.Banner{},
+		&model.Detail{},
+		&model.File{},
+		&model.Plate{},
+		&model.Recommend{},
+		&model.Setting{},
+		&model.Tag{},
+		&model.User{},
+	)
 
 	// 设置空闲连接池中的最大连接数
 	db.DB().SetMaxIdleConns(10)
