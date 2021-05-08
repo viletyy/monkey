@@ -9,3 +9,4 @@ conf/app.conf
 monkey
 lastupdate.tmp
 static/upload/file/*
+latest_log
