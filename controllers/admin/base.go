@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-23 10:06:42
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-28 21:30:23
+ * @LastEditTime: 2021-05-08 14:29:18
  * @FilePath: /monkey/controllers/admin/base.go
  */
 package admin
@@ -95,30 +95,6 @@ func (c *Base) ValidatorAuto(data interface{}) {
 		c.FlashBag.Error("参数解析错误")
 		c.RedirectTo(c.RedirectUrl)
 	}
-
-	defaultMessage := map[string]string{
-		"Required":     "不能为空",
-		"Min":          "不能小于%d",
-		"Max":          "不能大于%d",
-		"Range":        "取值必须在%d到%d之间",
-		"MinSize":      "长度不能小于%d",
-		"MaxSize":      "长度不能大于%d",
-		"Length":       "长度必须等于%d",
-		"Alpha":        "必须是字母",
-		"Numeric":      "必须是数字",
-		"AlphaNumeric": "必须是字母或者数字",
-		"Match":        "必须出现 %s 关键字",
-		"NoMatch":      "不能出现 %s 关键字",
-		"AlphaDash":    "必须是字母，数组或者横线(-)",
-		"Email":        "不合法的邮箱地址",
-		"IP":           "不合法的IP",
-		"Base64":       "不合法的Base64编码格式",
-		"Mobile":       "不合法的手机号",
-		"Tel":          "不合法的电话号码",
-		"Phone":        "不合法的手机号",
-		"ZipCode":      "不合法的邮编",
-	}
-	validation.SetDefaultMessage(defaultMessage)
 	validate := validation.Validation{}
 
 	isValid, err := validate.Valid(data)
