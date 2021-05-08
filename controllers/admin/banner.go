@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-24 15:36:02
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-28 23:16:00
+ * @LastEditTime: 2021-05-08 17:48:30
  * @FilePath: /monkey/controllers/admin/banner.go
  */
 package admin
@@ -46,9 +46,9 @@ func (c *Banner) Create() {
 	createBanner := admin.BannerChangeValidation{}
 	c.ValidatorAuto(&createBanner)
 
-	// TODO文件处理
 	dbBanner := model.Banner{
 		Name:     createBanner.Name,
+		Cover:    c.ProcessFile("cover"),
 		Position: createBanner.Position,
 	}
 

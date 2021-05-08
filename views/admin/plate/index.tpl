@@ -1,11 +1,17 @@
 <!--
  * @Date: 2021-04-23 13:56:41
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-24 15:33:29
+ * @LastEditTime: 2021-05-08 16:47:13
  * @FilePath: /monkey/views/admin/plate/index.tpl
 -->
+<nav class="breadcrumb" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="{{urlfor "admin.Dashboard.Index"}}" aria-current="page">仪表板</a></li>
+    <li class="is-active"><a aria-current="page">板块管理</a></li>
+  </ul>
+</nav>
 <div class="box">
-  <button type="button" class="button is-info">新板块</button>
+  <a href="{{urlfor "admin.Plate.New"}}" class="button is-info">添加板块</a>
 </div>
 <div class="content box is-medium">
   <div class="card no-shadow">
@@ -13,30 +19,53 @@
       <div class="table-container">
         <table class="table is-fullwidth">
           <thead>
-            <th>id</th>
-            <th>name</th>
+            <th>ID</th>
+            <th>名称</th>
+            <th>是否展示在资讯</th>
+            <th>是否展示在文章</th>
+            <th>操作</th>
           </thead>
           <tbody>
+            {{ range $index, $plate := .List }}
             <tr>
-              <td>1</td>
-              <td>dslkfj</td>
+              <td>{{ $plate.ID }}</td>
+              <td>{{ $plate.Name }}</td>
+              <td>
+                {{ if eq true $plate.NewsRecommend }}
+                  是
+                {{ else }}
+                  否
+                {{ end }}
+              </td>
+              <td>
+                {{ if eq true $plate.ArticleRecommend }}
+                  是
+                {{ else }}
+                  否
+                {{ end }}
+              </td>
+              <td>
+                <div class="buttons" style="width: 250px;">
+                  <a href="{{urlfor "admin.Plate.Edit" ":id" $plate.ID}}" class="button is-success is-small">
+                    <span class="icon">
+                      <i class="fas fa-edit"></i>
+                    </span>
+                    <span>修改</span>
+                  </a>
+                  <button data-method="delete" data-href="{{urlfor "admin.Plate.Destroy" ":id" $plate.ID}}" class="form-link button is-danger is-small">
+                    <span class="icon">
+                      <i class="fas fa-trash"></i>
+                    </span>
+                    <span>删除</span>
+                  </button>
+                </div>
+              </td>
             </tr>
+            {{ end }}
           </tbody>
         </table>
       </div>
     </div>
   </div>
 </div>
-<nav class="pagination if-info is-medium is-centered box" role="navigation" aria-label="pagination">
-  <a class="pagination-previous">Previous</a>
-  <a class="pagination-next">Next page</a>
-  <ul class="pagination-list">
-    <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
-    <li><span class="pagination-ellipsis">&hellip;</span></li>
-    <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-    <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
-    <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
-    <li><span class="pagination-ellipsis">&hellip;</span></li>
-    <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
-  </ul>
-</nav>
+{{template "shared/paginator.html" .}}

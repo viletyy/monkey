@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-28 14:05:51
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-28 23:35:13
+ * @LastEditTime: 2021-05-08 15:53:41
  * @FilePath: /monkey/model/tag.go
  */
 package model
@@ -42,7 +42,7 @@ func CreateTag(tag *Tag) (err error) {
 }
 
 func UpdateTag(tag *Tag) (err error) {
-	err = global.DB.Update(&tag).Error
+	err = global.DB.Save(&tag).Error
 	return
 }
 

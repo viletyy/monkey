@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-28 16:28:12
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-28 22:41:36
+ * @LastEditTime: 2021-05-08 17:27:24
  * @FilePath: /monkey/model/banner.go
  */
 package model
@@ -9,6 +9,7 @@ package model
 import "github.com/viletyy/monkey/global"
 
 type Banner struct {
+	global.Model
 	Name     string `json:"name"`
 	Cover    File   `json:"cover" gorm:"polymorphic:Owner"`
 	Position int    `json:"position"`

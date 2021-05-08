@@ -1,11 +1,17 @@
 <!--
  * @Date: 2021-04-23 13:56:41
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-24 15:09:16
- * @FilePath: /monkey/views/admin/article/index.tpl
+ * @LastEditTime: 2021-05-08 16:04:20
+ * @FilePath: /monkey/views/admin/tag/index.tpl
 -->
+<nav class="breadcrumb" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="{{urlfor "admin.Dashboard.Index"}}" aria-current="page">仪表板</a></li>
+    <li class="is-active"><a aria-current="page">标签管理</a></li>
+  </ul>
+</nav>
 <div class="box">
-  <button type="button" class="button is-info">新标签</button>
+  <a href="{{urlfor "admin.Tag.New"}}" class="button is-info">添加标签</a>
 </div>
 <div class="content box is-medium">
   <div class="card no-shadow">
@@ -13,30 +19,37 @@
       <div class="table-container">
         <table class="table is-fullwidth">
           <thead>
-            <th>id</th>
-            <th>name</th>
+            <th>ID</th>
+            <th>名称</th>
+            <th>操作</th>
           </thead>
           <tbody>
+            {{ range $index, $tag := .List }}
             <tr>
-              <td>1</td>
-              <td>dslkfj</td>
+              <td>{{$tag.ID}}</td>
+              <td>{{$tag.Name}}</td>
+              <td>
+                <div class="buttons" style="width: 250px;">
+                  <a href="{{urlfor "admin.Tag.Edit" ":id" $tag.ID}}" class="button is-success is-small">
+                    <span class="icon">
+                      <i class="fas fa-edit"></i>
+                    </span>
+                    <span>修改</span>
+                  </a>
+                  <button data-method="delete" data-href="{{urlfor "admin.Tag.Destroy" ":id" $tag.ID}}" class="form-link button is-danger is-small">
+                    <span class="icon">
+                      <i class="fas fa-trash"></i>
+                    </span>
+                    <span>删除</span>
+                  </button>
+                </div>
+              </td>
             </tr>
+            {{ end }}
           </tbody>
         </table>
       </div>
     </div>
   </div>
 </div>
-<nav class="pagination if-info is-medium is-centered box" role="navigation" aria-label="pagination">
-  <a class="pagination-previous">Previous</a>
-  <a class="pagination-next">Next page</a>
-  <ul class="pagination-list">
-    <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
-    <li><span class="pagination-ellipsis">&hellip;</span></li>
-    <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-    <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
-    <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
-    <li><span class="pagination-ellipsis">&hellip;</span></li>
-    <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
-  </ul>
-</nav>
+{{template "shared/paginator.html" .}}

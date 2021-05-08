@@ -1,13 +1,15 @@
 /*
  * @Date: 2021-04-23 10:06:42
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-08 14:29:18
+ * @LastEditTime: 2021-05-08 17:52:26
  * @FilePath: /monkey/controllers/admin/base.go
  */
 package admin
 
 import (
+	"fmt"
 	"html/template"
+	"path"
 	"strconv"
 	"time"
 
@@ -134,8 +136,8 @@ func (c *Base) PageInfo() (pageInfo global.PageInfo) {
 		pageInfo.Page = 1
 	}
 	pageInfo.PageSize, err = c.GetInt("per")
-	if pageInfo.PageSize <= 0 || pageInfo.PageSize > 15 || err != nil {
-		pageInfo.PageSize = 15
+	if pageInfo.PageSize <= 0 || pageInfo.PageSize > 10 || err != nil {
+		pageInfo.PageSize = 10
 	}
 	return
 }
@@ -144,4 +146,23 @@ func (c *Base) ResponseWithResult(searchResult *global.SearchResult) {
 	p := yolk.NewPaginator(c.Ctx.Request, searchResult.PageSize, searchResult.Total)
 	c.Data["paginator"] = p
 	c.Data["List"] = searchResult.List
+}
+
+// 处理文件
+func (c *Base) ProcessFile(fromfile string) (file model.File) {
+	f, h, err := c.GetFile(fromfile)
+	if err != nil {
+		return file
+	}
+	defer f.Close()
+	diskName := fmt.Sprintf("%s%s%s", time.Now().Format("20060102150405"), yolk.GetRandomString(6), path.Ext(h.Filename))
+	c.SaveToFile(fromfile, "static/upload/file/"+diskName)
+	return model.File{
+		User:        *c.CurrentLoginUser,
+		Name:        h.Filename,
+		DiskName:    diskName,
+		SavePath:    "static/upload/file/",
+		Size:        int(h.Size),
+		ContentType: h.Header.Get("Content-Type"),
+	}
 }

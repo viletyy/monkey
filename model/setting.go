@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-28 16:01:21
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-28 21:51:26
+ * @LastEditTime: 2021-05-08 15:53:52
  * @FilePath: /monkey/model/setting.go
  */
 package model
@@ -107,7 +107,7 @@ func CreateSetting(setting *Setting) (err error) {
 }
 
 func UpdateSetting(setting *Setting) (err error) {
-	err = global.DB.Update(&setting).Error
+	err = global.DB.Save(&setting).Error
 	return
 }
 

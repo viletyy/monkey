@@ -1,17 +1,19 @@
 /*
  * @Date: 2021-04-28 16:40:43
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-28 21:36:57
+ * @LastEditTime: 2021-05-08 17:34:49
  * @FilePath: /monkey/model/file.go
  */
 package model
 
 import "github.com/viletyy/monkey/global"
 
+var FilePath = "static/upload/files/"
+
 type File struct {
 	global.Model
 	OwnerID     int    `json:"owner_id"`
-	OwnerType   int    `json:"owner_type"`
+	OwnerType   string `json:"owner_type"`
 	UserID      int    `json:"user_id"`
 	User        User   `json:"user" gorm:"association_autoupdate:false"`
 	Name        string `json:"name"`

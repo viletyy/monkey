@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-07 10:04:32
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-27 23:35:19
+ * @LastEditTime: 2021-05-08 16:54:10
  * @FilePath: /monkey/static/js/app-footer.js
  */
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,6 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(function() {
     $flashNotification.parentNode.removeChild($flashNotification)
   }, 3000);
+
+  const fileInput = document.querySelector('.file input[type=file]');
+  fileInput.onchange = () => {
+    if (fileInput.files.length > 0) {
+      const fileName = document.querySelector('.file .file-name');
+      fileName.textContent = fileInput.files[0].name;
+    }
+  }
 });
 
 $(function(){
