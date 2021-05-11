@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-23 10:06:42
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-08 17:52:26
+ * @LastEditTime: 2021-05-11 13:58:39
  * @FilePath: /monkey/controllers/admin/base.go
  */
 package admin
@@ -156,12 +156,15 @@ func (c *Base) ProcessFile(fromfile string) (file model.File) {
 	}
 	defer f.Close()
 	diskName := fmt.Sprintf("%s%s%s", time.Now().Format("20060102150405"), yolk.GetRandomString(6), path.Ext(h.Filename))
-	c.SaveToFile(fromfile, "static/upload/file/"+diskName)
+	err = c.SaveToFile(fromfile, "static/upload/file/"+diskName)
+	if err != nil {
+		c.ErrorHandler(err)
+	}
 	return model.File{
 		User:        *c.CurrentLoginUser,
 		Name:        h.Filename,
 		DiskName:    diskName,
-		SavePath:    "static/upload/file/",
+		SavePath:    "/static/upload/file/",
 		Size:        int(h.Size),
 		ContentType: h.Header.Get("Content-Type"),
 	}

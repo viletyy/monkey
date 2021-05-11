@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-11 16:33:58
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-27 22:45:59
+ * @LastEditTime: 2021-05-11 16:43:20
  * @FilePath: /monkey/routers/router.go
  */
 package routers
@@ -18,6 +18,7 @@ import (
 func init() {
 	beego.InsertFilter("*", beego.BeforeRouter, filterMethod)
 	_ = beego.AddFuncMap("isActiveController", isActiveController)
+	_ = beego.AddFuncMap("stringJoin", stringJoin)
 	beego.Router("/", &controllers.Index{}, "get:Index")
 	beego.Router("/search", &controllers.Index{}, "get:Search")
 	beego.Router("/article", &controllers.Article{}, "get:Index")
@@ -36,6 +37,10 @@ func isActiveController(parttern, controller string) string {
 		return "is-active"
 	}
 	return ""
+}
+
+func stringJoin(s []string, sep string) string {
+	return strings.Join(s, sep)
 }
 
 func filterMethod(ctx *context.Context) {

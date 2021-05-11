@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-04-23 13:56:41
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-08 17:37:51
+ * @LastEditTime: 2021-05-11 14:28:15
  * @FilePath: /monkey/views/admin/banner/index.tpl
 -->
 <nav class="breadcrumb" aria-label="breadcrumbs">
@@ -31,7 +31,13 @@
               <td>{{ $banner.ID }}</td>
               <td>{{ $banner.Name }}</td>
               <td>
-                图片
+                {{ if $banner.Cover.ID }}
+                <figure class="image is-128x128">
+                  <img src="{{$banner.Cover.SavePath}}{{$banner.Cover.DiskName}}">
+                </figure>
+                {{ else }}
+                无
+                {{ end }}
               </td>
               <td>
                 {{ $banner.Position }}

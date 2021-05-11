@@ -1,12 +1,14 @@
 /*
  * @Date: 2021-04-28 16:28:12
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-08 17:27:24
+ * @LastEditTime: 2021-05-11 14:23:37
  * @FilePath: /monkey/model/banner.go
  */
 package model
 
-import "github.com/viletyy/monkey/global"
+import (
+	"github.com/viletyy/monkey/global"
+)
 
 type Banner struct {
 	global.Model
@@ -23,7 +25,7 @@ func GetBanners(search *global.Search) (searchResult global.SearchResult, err er
 	if err != nil {
 		return
 	}
-	err = global.DB.Where(search.Maps).Offset(offset).Limit(limit).Find(&banners).Error
+	err = global.DB.Where(search.Maps).Preload("Cover").Offset(offset).Limit(limit).Find(&banners).Error
 	if err != nil {
 		return
 	}
@@ -34,7 +36,7 @@ func GetBanners(search *global.Search) (searchResult global.SearchResult, err er
 }
 
 func GetBannerById(id int) (banner Banner, err error) {
-	err = global.DB.Where("id = ?", id).First(&banner).Error
+	err = global.DB.Where("id = ?", id).Preload("Cover").First(&banner).Error
 	return
 }
 
