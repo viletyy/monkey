@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-28 16:01:21
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-08 15:53:52
+ * @LastEditTime: 2021-05-12 18:40:08
  * @FilePath: /monkey/model/setting.go
  */
 package model
@@ -14,17 +14,6 @@ import (
 	beego "github.com/beego/beego/v2/server/web"
 	"github.com/viletyy/monkey/global"
 )
-
-type Keyword string
-
-func (k Keyword) Value() (driver.Value, error) {
-	b, err := json.Marshal(k)
-	return string(b), err
-}
-
-func (k Keyword) Scan(input interface{}) error {
-	return json.Unmarshal(input.([]byte), k)
-}
 
 type Navbar struct {
 	Name   string `json:"name"`
@@ -39,18 +28,19 @@ func (n Navbars) Value() (driver.Value, error) {
 	return string(b), err
 }
 
-func (n Navbars) Scan(input interface{}) error {
+func (n *Navbars) Scan(input interface{}) error {
 	return json.Unmarshal(input.([]byte), n)
 }
 
 type Setting struct {
 	global.Model
-	Name      string    `json:"name"`
-	Title     string    `json:"title"`
-	Keywords  []Keyword `json:"keywords" sql:"TYPE:json"`
-	Navbars   Navbars   `json:"navbars" sql:"TYPE:json"`
-	Footer    string    `json:"footer"`
-	IsCurrent bool      `json:"is_current"`
+	Name        string          `json:"name"`
+	Title       string          `json:"title"`
+	Description string          `json:"description"`
+	Keywords    global.Keywords `json:"keywords" sql:"TYPE:json"`
+	Navbars     Navbars         `json:"navbars" sql:"TYPE:json"`
+	Footer      string          `json:"footer"`
+	IsCurrent   bool            `json:"is_current"`
 }
 
 func DefaultSetting() *Setting {
@@ -64,9 +54,10 @@ func DefaultSetting() *Setting {
 			panic("Get Config Error: httpport")
 		}
 		return &Setting{
-			Name:     fmt.Sprintf("localhost:%d", defaultHttpport),
-			Title:    "Monkey",
-			Keywords: []Keyword{"Golang", "Beego", "Gorm"},
+			Name:        fmt.Sprintf("localhost:%d", defaultHttpport),
+			Title:       "Monkey",
+			Keywords:    []string{"Golang", "Beego", "Gorm"},
+			Description: "奋力向前的程序🐶的个人博客，在平时开发中遇到的技术难关以及推荐的资讯",
 			Navbars: []Navbar{
 				{Name: "首页", Link: "/", IsShow: true},
 				{Name: "板块", Link: "/plate", IsShow: true},

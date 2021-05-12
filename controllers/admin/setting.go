@@ -1,12 +1,14 @@
 /*
  * @Date: 2021-04-24 15:35:00
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-28 23:33:07
+ * @LastEditTime: 2021-05-12 18:26:53
  * @FilePath: /monkey/controllers/admin/setting.go
  */
 package admin
 
 import (
+	"strconv"
+
 	beego "github.com/beego/beego/v2/server/web"
 	"github.com/viletyy/monkey/global"
 	"github.com/viletyy/monkey/model"
@@ -45,17 +47,12 @@ func (c *Setting) Create() {
 	c.RedirectUrl = beego.URLFor("admin.Setting.New")
 	createSetting := admin.SettingChangeValidation{}
 	c.ValidatorAuto(&createSetting)
-
-	var keywords []model.Keyword
-	var navbars model.Navbars
-
-	//TODO keywords处理
-	//TODO navbars处理
+	navbars := c.parseNavbars()
 
 	dbSetting := model.Setting{
 		Name:      createSetting.Name,
 		Title:     createSetting.Title,
-		Keywords:  keywords,
+		Keywords:  createSetting.Keywords,
 		Navbars:   navbars,
 		Footer:    createSetting.Footer,
 		IsCurrent: createSetting.IsCurrent,
@@ -96,14 +93,11 @@ func (c *Setting) Update() {
 		updateSetting := admin.SettingChangeValidation{}
 		c.ValidatorAuto(&updateSetting)
 
-		//TODO keywords处理
-		//TODO navbar处理
-		var keywords []model.Keyword
-		var navbars model.Navbars
+		navbars := c.parseNavbars()
 
 		dbSetting.Name = updateSetting.Name
 		dbSetting.Title = updateSetting.Title
-		dbSetting.Keywords = keywords
+		dbSetting.Keywords = updateSetting.Keywords
 		dbSetting.Navbars = navbars
 		dbSetting.Footer = updateSetting.Footer
 		dbSetting.IsCurrent = updateSetting.IsCurrent
@@ -136,4 +130,25 @@ func (c *Setting) Destroy() {
 			c.RedirectTo(c.RedirectUrl)
 		}
 	}
+}
+
+func (c *Setting) parseNavbars() (navbars model.Navbars) {
+	names := c.GetStrings("navbars[name]")
+	links := c.GetStrings("navbars[link]")
+	isShows := c.GetStrings("navbars[is_show]")
+	if len(names) != len(links) || len(links) != len(isShows) || len(names) != len(isShows) {
+		return
+	}
+	for i, _ := range names {
+		isShow, err := strconv.ParseBool(isShows[i])
+		if err != nil {
+			return model.Navbars{}
+		}
+		navbars = append(navbars, model.Navbar{
+			Name:   names[i],
+			Link:   links[i],
+			IsShow: isShow,
+		})
+	}
+	return
 }

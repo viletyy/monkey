@@ -1,12 +1,14 @@
 /*
  * @Date: 2021-03-09 09:57:02
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-07 09:50:19
- * @FilePath: /egg/global/model.go
+ * @LastEditTime: 2021-05-12 18:40:17
+ * @FilePath: /monkey/global/model.go
  */
 package global
 
 import (
+	"database/sql/driver"
+	"encoding/json"
 	"time"
 )
 
@@ -32,4 +34,15 @@ type SearchResult struct {
 	Total    int64       `json:"total"`
 	Page     int         `json:"page"`
 	PageSize int         `json:"page_size"`
+}
+
+type Keywords []string
+
+func (k Keywords) Value() (driver.Value, error) {
+	b, err := json.Marshal(k)
+	return string(b), err
+}
+
+func (k *Keywords) Scan(input interface{}) error {
+	return json.Unmarshal(input.([]byte), k)
 }

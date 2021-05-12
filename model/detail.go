@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-28 14:08:12
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-28 22:23:37
+ * @LastEditTime: 2021-05-11 16:58:03
  * @FilePath: /monkey/model/detail.go
  */
 package model
@@ -17,17 +17,18 @@ const (
 
 type Detail struct {
 	global.Model
-	Title      string     `json:"title"`
-	SubTitle   string     `json:"sub_title"`
-	Cover      File       `json:"cover" gorm:"polymorphic:Owner"`
-	Content    string     `json:"content"`
-	DetailType DetailType `json:"detail_type"`
-	Tags       []Tag      `json:"tags" gorm:"many2many:detail_tags"`
-	UserID     uint       `json:"user_id"`
-	User       User       `json:"user" gorm:"association_autoupdate:false"`
-	PlateID    uint       `json:"plate_id"`
-	Plate      Plate      `json:"plate" gorm:"association_autoupdate:false"`
-	Recommend  bool       `json:"recommend"`
+	Title      string          `json:"title"`
+	SubTitle   string          `json:"sub_title"`
+	Keywords   global.Keywords `json:"keywords" sql:"TYPE:json"`
+	Cover      File            `json:"cover" gorm:"polymorphic:Owner"`
+	Content    string          `json:"content"`
+	DetailType DetailType      `json:"detail_type"`
+	Tags       []Tag           `json:"tags" gorm:"many2many:detail_tags"`
+	UserID     uint            `json:"user_id"`
+	User       User            `json:"user" gorm:"association_autoupdate:false"`
+	PlateID    uint            `json:"plate_id"`
+	Plate      Plate           `json:"plate" gorm:"association_autoupdate:false"`
+	Recommend  bool            `json:"recommend"`
 }
 
 func GetDetails(search *global.Search) (searchResult global.SearchResult, err error) {

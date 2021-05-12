@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-04-22 14:58:05
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-08 14:43:15
+ * @LastEditTime: 2021-05-11 15:42:10
  * @FilePath: /monkey/views/shared/navbar.tpl
 -->
 <nav class="navbar has-shadow">
@@ -25,26 +25,15 @@
             </form>
           </div>
         </div>
-        <a href="{{urlfor "controllers.Index.Index"}}" class="navbar-item
-          {{isActiveController .RouterPattern "/" }}
-          is-size-5 has-text-weight-semibold">
-          首页
-        </a>
-        <a href="{{urlfor "controllers.Plate.Index"}}" class="navbar-item
-          {{isActiveController .RouterPattern "/plate" }}
-          is-size-5 has-text-weight-semibold">
-          板块
-        </a>
-        <a href="{{urlfor "controllers.Article.Index"}}" class="navbar-item
-          {{isActiveController .RouterPattern "/article" }}
-          is-size-5 has-text-weight-semibold">
-          文章
-        </a>
-        <a href="{{urlfor "controllers.News.Index"}}" class="navbar-item 
-          {{isActiveController .RouterPattern "/news" }}
-          is-size-5 has-text-weight-semibold">
-          资讯
-        </a>
+        {{$RouterPattern := .RouterPattern}}{{ range $index, $navbar := .Setting.Navbars}}
+          {{if eq true $navbar.IsShow}}
+          <a href="{{$navbar.Link}}" class="navbar-item
+            {{isActiveController $RouterPattern $navbar.Link }}
+            is-size-5 has-text-weight-semibold">
+            {{$navbar.Name}}
+          </a>
+          {{end}}
+        {{ end}}
         <div class="navbar-item has-dropdown is-hoverable">
           {{if .IsLogin}}
             <a class="navbar-link">{{.User.Username}}</a>
