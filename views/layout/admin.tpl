@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-03-11 11:30:16
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-11 15:05:37
+ * @LastEditTime: 2021-05-13 14:02:35
  * @FilePath: /monkey/views/layout/admin.tpl
 -->
 <!DOCTYPE html>
@@ -9,7 +9,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Monkey</title>
+  <meta name="description" content="{{.LayoutSetting.Description}}">
+  {{$keywords := .LayoutSetting.Keywords}}
+  <meta name="keywords" content="{{stringJoin $keywords "," }}">
+  <title>{{.LayoutSetting.Title}}</title>
   <link rel="stylesheet" href="/static/css/app.css">
   <script src="/static/js/jquery.min.js"></script>
   <script src="/static/font-awesome/js/all.js"></script>

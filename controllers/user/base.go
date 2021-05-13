@@ -63,6 +63,7 @@ func (c *Base) Prepare() {
 	c.Data["User"] = c.CurrentLoginUser
 	c.Data["IsLogin"] = isLogin
 	c.Data["IsAdmin"] = isAdmin
+	c.Data["LayoutSetting"] = model.DefaultSetting()
 
 	if !isLogin {
 		c.RedirectTo("/login")

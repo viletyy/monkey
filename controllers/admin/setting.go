@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-24 15:35:00
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-12 18:26:53
+ * @LastEditTime: 2021-05-13 13:52:44
  * @FilePath: /monkey/controllers/admin/setting.go
  */
 package admin
@@ -50,12 +50,13 @@ func (c *Setting) Create() {
 	navbars := c.parseNavbars()
 
 	dbSetting := model.Setting{
-		Name:      createSetting.Name,
-		Title:     createSetting.Title,
-		Keywords:  createSetting.Keywords,
-		Navbars:   navbars,
-		Footer:    createSetting.Footer,
-		IsCurrent: createSetting.IsCurrent,
+		Name:        createSetting.Name,
+		Title:       createSetting.Title,
+		Description: createSetting.Description,
+		Keywords:    createSetting.Keywords,
+		Navbars:     navbars,
+		Footer:      createSetting.Footer,
+		IsCurrent:   createSetting.IsCurrent,
 	}
 
 	if err := model.CreateSetting(&dbSetting); err == nil {
@@ -97,6 +98,7 @@ func (c *Setting) Update() {
 
 		dbSetting.Name = updateSetting.Name
 		dbSetting.Title = updateSetting.Title
+		dbSetting.Description = updateSetting.Description
 		dbSetting.Keywords = updateSetting.Keywords
 		dbSetting.Navbars = navbars
 		dbSetting.Footer = updateSetting.Footer

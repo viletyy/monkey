@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-28 16:01:21
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-12 18:40:08
+ * @LastEditTime: 2021-05-13 14:14:11
  * @FilePath: /monkey/model/setting.go
  */
 package model
@@ -93,12 +93,18 @@ func GetSettingById(id int) (setting Setting, err error) {
 }
 
 func CreateSetting(setting *Setting) (err error) {
-	err = global.DB.Create(&setting).Error
+	tx := global.DB.Begin()
+	err = tx.Create(&setting).Error
+	tx.Model(&Setting{}).Where("is_current = ? AND id != ?", true, setting.ID).Update("is_current", false)
+	tx.Commit()
 	return
 }
 
 func UpdateSetting(setting *Setting) (err error) {
-	err = global.DB.Save(&setting).Error
+	tx := global.DB.Begin()
+	err = tx.Save(&setting).Error
+	tx.Model(&Setting{}).Where("is_current = ? AND id != ?", true, setting.ID).Update("is_current", false)
+	tx.Commit()
 	return
 }
 

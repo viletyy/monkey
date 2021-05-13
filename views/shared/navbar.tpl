@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-04-22 14:58:05
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-11 15:42:10
+ * @LastEditTime: 2021-05-13 14:05:05
  * @FilePath: /monkey/views/shared/navbar.tpl
 -->
 <nav class="navbar has-shadow">
@@ -25,7 +25,7 @@
             </form>
           </div>
         </div>
-        {{$RouterPattern := .RouterPattern}}{{ range $index, $navbar := .Setting.Navbars}}
+        {{$RouterPattern := .RouterPattern}}{{ range $index, $navbar := .LayoutSetting.Navbars}}
           {{if eq true $navbar.IsShow}}
           <a href="{{$navbar.Link}}" class="navbar-item
             {{isActiveController $RouterPattern $navbar.Link }}

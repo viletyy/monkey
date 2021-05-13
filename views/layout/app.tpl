@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-03-11 11:30:16
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-11 17:06:33
+ * @LastEditTime: 2021-05-13 14:01:31
  * @FilePath: /monkey/views/layout/app.tpl
 -->
 <!DOCTYPE html>
@@ -9,15 +9,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="{{.Setting.Description}}">
+  <meta name="description" content="{{.LayoutSetting.Description}}">
   {{ if .Detail }}
     {{$keywords := .Detail.Keywords}}
     <meta name="keywords" content="{{stringJoin $keywords "," }}">
   {{ else }}
-    {{$keywords := .Setting.Keywords}}
+    {{$keywords := .LayoutSetting.Keywords}}
     <meta name="keywords" content="{{stringJoin $keywords "," }}">
   {{ end }}
-  <title>{{.Setting.Title}}</title>
+  <title>{{.LayoutSetting.Title}}</title>
   <link rel="stylesheet" href="/static/css/app.css">
   <script src="/static/js/jquery.min.js"></script>
   <script src="/static/font-awesome/js/all.js"></script>

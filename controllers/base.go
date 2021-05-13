@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-11 11:46:46
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-11 15:03:05
+ * @LastEditTime: 2021-05-13 14:01:03
  * @FilePath: /monkey/controllers/base.go
  */
 package controllers
@@ -68,7 +68,7 @@ func (c *Base) Prepare() {
 	c.Data["User"] = c.CurrentLoginUser
 	c.Data["IsLogin"] = isLogin
 	c.Data["IsAdmin"] = isAdmin
-	c.Data["Setting"] = model.DefaultSetting()
+	c.Data["LayoutSetting"] = model.DefaultSetting()
 }
 
 // 保存成功的Flash信息

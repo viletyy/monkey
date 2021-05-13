@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-23 10:06:42
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-11 13:58:39
+ * @LastEditTime: 2021-05-13 14:03:22
  * @FilePath: /monkey/controllers/admin/base.go
  */
 package admin
@@ -73,6 +73,7 @@ func (c *Base) Prepare() {
 	c.Data["User"] = c.CurrentLoginUser
 	c.Data["IsLogin"] = isLogin
 	c.Data["IsAdmin"] = isAdmin
+	c.Data["LayoutSetting"] = model.DefaultSetting()
 
 	if !isAdmin {
 		c.RedirectTo("/user")
