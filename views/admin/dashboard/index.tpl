@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-04-23 10:31:08
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-24 15:08:54
+ * @LastEditTime: 2021-05-18 17:26:17
  * @FilePath: /monkey/views/admin/dashboard/index.tpl
 -->
 <div class="content box is-medium">
@@ -40,16 +40,20 @@
       <div class="table-container">
         <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
           <thead>
-            <th>One</th>
-            <th>Two</th>
+            <th>参数名称</th>
+            <th>参数内容</th>
           </thead>
           <tbody>
             <tr>
-              <td>three</td>
+              <td>网站名称</td>
               <td>four</td>
             </tr>
             <tr>
-              <td>five</td>
+              <td>网站描述</td>
+              <td>six</td>
+            </tr>
+            <tr>
+              <td>网站关键词</td>
               <td>six</td>
             </tr>
           </tbody>

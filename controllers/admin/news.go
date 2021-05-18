@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-23 10:13:24
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-28 23:05:48
+ * @LastEditTime: 2021-05-18 17:40:00
  * @FilePath: /monkey/controllers/admin/news.go
  */
 package admin
@@ -50,7 +50,7 @@ func (c *News) Index() {
 }
 
 func (c *News) New() {
-
+	c.getPlates()
 }
 
 func (c *News) Create() {
@@ -83,6 +83,7 @@ func (c *News) Create() {
 }
 
 func (c *News) Edit() {
+	c.getPlates()
 	var articleId int
 	err := c.Ctx.Input.Bind(&articleId, ":id")
 	if err != nil {
@@ -147,5 +148,20 @@ func (c *News) Destroy() {
 			c.FlashError(err.Error())
 			c.RedirectTo(c.RedirectUrl)
 		}
+	}
+}
+
+func (c *News) getPlates() {
+	search := global.Search{
+		Maps: make(map[string]interface{}),
+		PageInfo: global.PageInfo{
+			Page:     1,
+			PageSize: 200,
+		},
+	}
+	if searchResult, err := model.GetPlates(&search); err == nil {
+		c.Data["Plates"] = searchResult.List
+	} else {
+		c.FlashError("加载板块失败")
 	}
 }

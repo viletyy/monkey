@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-28 14:08:12
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-11 16:58:03
+ * @LastEditTime: 2021-05-18 18:28:25
  * @FilePath: /monkey/model/detail.go
  */
 package model
@@ -40,7 +40,7 @@ func GetDetails(search *global.Search) (searchResult global.SearchResult, err er
 	if err != nil {
 		return
 	}
-	err = global.DB.Where(search.Maps).Offset(offset).Limit(limit).Find(&details).Error
+	err = global.DB.Where(search.Maps).Preload("Tags").Preload("Plate").Preload("Cover").Offset(offset).Limit(limit).Find(&details).Error
 	if err != nil {
 		return
 	}
@@ -51,7 +51,7 @@ func GetDetails(search *global.Search) (searchResult global.SearchResult, err er
 }
 
 func GetDetailById(id int) (detail Detail, err error) {
-	err = global.DB.Where("id = ?", id).First(&detail).Error
+	err = global.DB.Where("id = ?", id).Preload("Tags").Preload("Plate").Preload("Cover").First(&detail).Error
 	return
 }
 

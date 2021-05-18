@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-23 10:12:31
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-28 23:05:10
+ * @LastEditTime: 2021-05-18 18:29:19
  * @FilePath: /monkey/controllers/admin/article.go
  */
 package admin
@@ -49,7 +49,7 @@ func (c *Article) Index() {
 }
 
 func (c *Article) New() {
-
+	c.getPlates()
 }
 
 func (c *Article) Create() {
@@ -57,13 +57,14 @@ func (c *Article) Create() {
 	createArticle := admin.DetailChangeValidation{}
 	c.ValidatorAuto(&createArticle)
 
-	//TODO文件处理
 	//tags处理
 	var tags []model.Tag
 
 	dbArticle := model.Detail{
 		Title:      createArticle.Title,
 		SubTitle:   createArticle.SubTitle,
+		Keywords:   createArticle.Keywords,
+		Cover:      c.ProcessFile("cover"),
 		Content:    createArticle.Content,
 		DetailType: model.DetailArticle,
 		Tags:       tags,
@@ -82,6 +83,7 @@ func (c *Article) Create() {
 }
 
 func (c *Article) Edit() {
+	c.getPlates()
 	var articleId int
 	err := c.Ctx.Input.Bind(&articleId, ":id")
 	if err != nil {
@@ -107,13 +109,18 @@ func (c *Article) Update() {
 		updateArticle := admin.DetailChangeValidation{}
 		c.ValidatorAuto(&updateArticle)
 
-		//TODO 文件处理
 		//TODO tags处理
 
 		var tags []model.Tag
 
+		file := c.ProcessFile("cover")
+		if file.Size == 0 {
+			file = dbArticle.Cover
+		}
+
 		dbArticle.Title = updateArticle.Title
 		dbArticle.SubTitle = updateArticle.SubTitle
+		dbArticle.Keywords = updateArticle.Keywords
 		dbArticle.Content = updateArticle.Content
 		dbArticle.Tags = tags
 		dbArticle.PlateID = uint(updateArticle.PlateID)
@@ -146,5 +153,20 @@ func (c *Article) Destroy() {
 			c.FlashError(err.Error())
 			c.RedirectTo(c.RedirectUrl)
 		}
+	}
+}
+
+func (c *Article) getPlates() {
+	search := global.Search{
+		Maps: make(map[string]interface{}),
+		PageInfo: global.PageInfo{
+			Page:     1,
+			PageSize: 200,
+		},
+	}
+	if searchResult, err := model.GetPlates(&search); err == nil {
+		c.Data["Plates"] = searchResult.List
+	} else {
+		c.FlashError("加载板块失败")
 	}
 }
