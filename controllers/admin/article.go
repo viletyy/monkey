@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-23 10:12:31
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-18 18:29:19
+ * @LastEditTime: 2021-05-20 11:00:46
  * @FilePath: /monkey/controllers/admin/article.go
  */
 package admin
@@ -114,8 +114,8 @@ func (c *Article) Update() {
 		var tags []model.Tag
 
 		file := c.ProcessFile("cover")
-		if file.Size == 0 {
-			file = dbArticle.Cover
+		if file.Size != 0 {
+			dbArticle.Cover = file
 		}
 
 		dbArticle.Title = updateArticle.Title

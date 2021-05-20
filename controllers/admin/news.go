@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-23 10:13:24
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-18 17:40:00
+ * @LastEditTime: 2021-05-20 11:11:28
  * @FilePath: /monkey/controllers/admin/news.go
  */
 package admin
@@ -58,13 +58,14 @@ func (c *News) Create() {
 	createNews := admin.DetailChangeValidation{}
 	c.ValidatorAuto(&createNews)
 
-	//TODO文件处理
 	//tags处理
 	var tags []model.Tag
 
 	dbNews := model.Detail{
 		Title:      createNews.Title,
 		SubTitle:   createNews.SubTitle,
+		Keywords:   createNews.Keywords,
+		Cover:      c.ProcessFile("cover"),
 		Content:    createNews.Content,
 		DetailType: model.DetailNews,
 		Tags:       tags,
@@ -75,7 +76,7 @@ func (c *News) Create() {
 
 	if err := model.CreateDetail(&dbNews); err == nil {
 		c.FlashSuccess("添加文章成功")
-		c.RedirectTo("/admin/article")
+		c.RedirectTo("/admin/news")
 	} else {
 		c.FlashError(err.Error())
 		c.RedirectTo(c.RedirectUrl)
@@ -84,12 +85,12 @@ func (c *News) Create() {
 
 func (c *News) Edit() {
 	c.getPlates()
-	var articleId int
-	err := c.Ctx.Input.Bind(&articleId, ":id")
+	var newsId int
+	err := c.Ctx.Input.Bind(&newsId, ":id")
 	if err != nil {
 		c.ErrorHandler(err)
 	}
-	if dbNews, err := model.GetDetailById(articleId); err != nil {
+	if dbNews, err := model.GetDetailById(newsId); err != nil {
 		c.ErrorHandler(err)
 	} else {
 		c.Data["News"] = dbNews
@@ -97,22 +98,26 @@ func (c *News) Edit() {
 }
 
 func (c *News) Update() {
-	var articleId int
-	err := c.Ctx.Input.Bind(&articleId, ":id")
+	var newsId int
+	err := c.Ctx.Input.Bind(&newsId, ":id")
 	if err != nil {
 		c.ErrorHandler(err)
 	}
-	c.RedirectUrl = beego.URLFor("admin.News.Edit", ":id", articleId)
-	if dbNews, err := model.GetDetailById(articleId); err != nil {
+	c.RedirectUrl = beego.URLFor("admin.News.Edit", ":id", newsId)
+	if dbNews, err := model.GetDetailById(newsId); err != nil {
 		c.ErrorHandler(err)
 	} else {
 		updateNews := admin.DetailChangeValidation{}
 		c.ValidatorAuto(&updateNews)
 
-		//TODO 文件处理
 		//TODO tags处理
 
 		var tags []model.Tag
+
+		file := c.ProcessFile("cover")
+		if file.Size != 0 {
+			dbNews.Cover = file
+		}
 
 		dbNews.Title = updateNews.Title
 		dbNews.SubTitle = updateNews.SubTitle
@@ -123,7 +128,7 @@ func (c *News) Update() {
 
 		if err := model.UpdateDetail(&dbNews); err == nil {
 			c.FlashSuccess("更新成功")
-			c.RedirectTo("/admin/article")
+			c.RedirectTo("/admin/news")
 		} else {
 			c.FlashError(err.Error())
 			c.RedirectTo(c.RedirectUrl)
@@ -132,13 +137,13 @@ func (c *News) Update() {
 }
 
 func (c *News) Destroy() {
-	var articleId int
-	err := c.Ctx.Input.Bind(&articleId, ":id")
+	var newsId int
+	err := c.Ctx.Input.Bind(&newsId, ":id")
 	if err != nil {
 		c.ErrorHandler(err)
 	}
 	c.RedirectUrl = beego.URLFor("admin.News.Index")
-	if dbNews, err := model.GetDetailById(articleId); err != nil {
+	if dbNews, err := model.GetDetailById(newsId); err != nil {
 		c.ErrorHandler(err)
 	} else {
 		if err := model.DeleteDetail(&dbNews); err == nil {

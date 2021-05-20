@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-24 15:36:02
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-11 14:33:54
+ * @LastEditTime: 2021-05-20 11:01:16
  * @FilePath: /monkey/controllers/admin/banner.go
  */
 package admin
@@ -88,13 +88,12 @@ func (c *Banner) Update() {
 		c.ValidatorAuto(&updateBanner)
 
 		file := c.ProcessFile("cover")
-		if file.Size == 0 {
-			file = dbBanner.Cover
+		if file.Size != 0 {
+			dbBanner.Cover = file
 		}
 
 		dbBanner.Name = updateBanner.Name
 		dbBanner.Position = updateBanner.Position
-		dbBanner.Cover = file
 
 		if err := model.UpdateBanner(&dbBanner); err == nil {
 			c.FlashSuccess("更新Banner成功")

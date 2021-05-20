@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-04-23 11:44:12
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-11 15:42:32
+ * @LastEditTime: 2021-05-20 11:09:51
  * @FilePath: /monkey/views/shared/admin_menu.tpl
 -->
 <aside class="menu">
@@ -9,7 +9,7 @@
     通用
   </p>
   <ul class="menu-list">
-    <li><a class="{{isActiveController .RouterPattern "/admin/" }}" href="{{urlfor "admin.Dashboard.Index"}}">仪表盘</a></li>
+    <li><a class="{{isActiveController .RouterPattern "/admin/dashboard" }}" href="{{urlfor "admin.Dashboard.Index"}}">仪表盘</a></li>
   </ul>
   <p class="menu-label">
     数据管理

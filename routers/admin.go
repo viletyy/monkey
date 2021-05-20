@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-27 18:06:28
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-28 23:39:33
+ * @LastEditTime: 2021-05-20 11:09:01
  * @FilePath: /monkey/routers/admin.go
  */
 package routers
@@ -13,7 +13,7 @@ import (
 
 func init() {
 	adminNs := beego.NewNamespace("/admin",
-		beego.NSRouter("/", &admin.Dashboard{}, "get:Index"),
+		beego.NSRouter("/dashboard", &admin.Dashboard{}, "get:Index"),
 		// 文章管理
 		beego.NSRouter("/article", &admin.Article{}, "get:Index;post:Create"),
 		beego.NSRouter("/article/new", &admin.Article{}, "get:New"),

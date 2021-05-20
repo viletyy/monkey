@@ -1,35 +1,35 @@
 <!--
  * @Date: 2021-04-23 13:56:41
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-20 10:55:20
- * @FilePath: /monkey/views/admin/article/edit.tpl
+ * @LastEditTime: 2021-05-20 11:03:20
+ * @FilePath: /monkey/views/admin/news/edit.tpl
 -->
 <nav class="breadcrumb" aria-label="breadcrumbs">
   <ul>
     <li><a href="{{urlfor "admin.Dashboard.Index"}}" aria-current="page">仪表板</a></li>
-    <li><a href="{{urlfor "admin.Article.Index"}}" aria-current="page">文章管理</a></li>
-    <li class="is-active"><a aria-current="page">编辑文章</a></li>
+    <li><a href="{{urlfor "admin.News.Index"}}" aria-current="page">资讯管理</a></li>
+    <li class="is-active"><a aria-current="page">编辑资讯</a></li>
   </ul>
 </nav>
 <div class="content box is-medium">
   <div class="card no-shadow">
     <div class="card-body">
-      <form enctype="multipart/form-data" action="{{urlfor "admin.Article.Update" ":id" .Article.ID}}" method="post">
+      <form enctype="multipart/form-data" action="{{urlfor "admin.News.Update" ":id" .News.ID}}" method="post">
         <input type="hidden" name="_method" value="put" />
         {{ .xsrfdata }}
         <div class="field">
           <label class="label" for="title">标题:</label>
-          <input class="input" type="text" name="title" value="{{.Article.Title}}">
+          <input class="input" type="text" name="title" value="{{.News.Title}}">
         </div>
         <div class="field">
           <label class="label" for="sub_title">副标题:</label>
-          <input class="input" type="text" name="sub_title" value="{{.Article.SubTitle}}">
+          <input class="input" type="text" name="sub_title" value="{{.News.SubTitle}}">
         </div>
         <div class="field">
           <button type="button" id="add-keyword" class="button is-info btn-primary"><i class="fas fa-plus"></i>添加关键词</button>
           <table class="box table no-shadow">
             <tbody id="keyword-content">
-              {{range $i, $keyword := .Article.Keywords }}
+              {{range $i, $keyword := .News.Keywords }}
               <tr>
                 <td><input type="text" name="keywords" class="input" value="{{$keyword}}"></td>
                 <td><button class="button is-danger btn-sm" type="button" onclick="destroy_tr(this)"><i class="fa fa-trash"></i></button></td>
@@ -52,8 +52,8 @@
                 </span>
               </span>
               <span class="file-name">
-                {{if .Article.Cover.ID}}
-                  {{.Article.Cover.Name}}
+                {{if .News.Cover.ID}}
+                  {{.News.Cover.Name}}
                 {{else}}
                   请选择文件...
                 {{end}}
@@ -63,7 +63,7 @@
         </div>
         <div class="field">
           <label class="label" for="content">内容:</label>
-          <textarea class="textarea" name="content">{{.Article.Content}}</textarea>
+          <textarea class="textarea" name="content">{{.News.Content}}</textarea>
         </div>
         <div class="field">
           <label class="label" for="content">板块:</label>
@@ -79,17 +79,17 @@
           <div class="control">
             <label class="label" for="recommend">是否展示在首页:
               <label class="radio">
-                <input type="radio" name="recommend" value="true" {{if eq true .Article.Recommend}}checked{{end}}>
+                <input type="radio" name="recommend" value="true" {{if eq true .News.Recommend}}checked{{end}}>
                 是
               </label>
               <label class="radio">
-                <input type="radio" name="recommend" value="false" {{if eq false .Article.Recommend}}checked{{end}}>
+                <input type="radio" name="recommend" value="false" {{if eq false .News.Recommend}}checked{{end}}>
                 否
               </label>
             </label>
           </div>
         </div>
-        <button class="button is-info" type="submit">更新</button>
+        <button class="button is-info" type="submit">更新资讯</button>
         <button class="button is-default" type="reset">重置</button>
         <br>
       </form>

@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-11 16:33:58
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-11 16:43:20
+ * @LastEditTime: 2021-05-20 11:07:57
  * @FilePath: /monkey/routers/router.go
  */
 package routers
@@ -33,7 +33,7 @@ func init() {
 }
 
 func isActiveController(parttern, controller string) string {
-	if parttern == controller {
+	if strings.HasPrefix(parttern, controller) {
 		return "is-active"
 	}
 	return ""
