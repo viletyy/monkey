@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-23 10:12:31
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-20 11:00:46
+ * @LastEditTime: 2021-05-20 16:20:41
  * @FilePath: /monkey/controllers/admin/article.go
  */
 package admin
@@ -109,29 +109,33 @@ func (c *Article) Update() {
 		updateArticle := admin.DetailChangeValidation{}
 		c.ValidatorAuto(&updateArticle)
 
-		//TODO tags处理
-
-		var tags []model.Tag
-
-		file := c.ProcessFile("cover")
-		if file.Size != 0 {
-			dbArticle.Cover = file
-		}
-
-		dbArticle.Title = updateArticle.Title
-		dbArticle.SubTitle = updateArticle.SubTitle
-		dbArticle.Keywords = updateArticle.Keywords
-		dbArticle.Content = updateArticle.Content
-		dbArticle.Tags = tags
-		dbArticle.PlateID = uint(updateArticle.PlateID)
-		dbArticle.Recommend = updateArticle.Recommend
-
-		if err := model.UpdateDetail(&dbArticle); err == nil {
-			c.FlashSuccess("更新成功")
-			c.RedirectTo("/admin/article")
+		if dbPlate, err := model.GetPlateById(updateArticle.PlateID); err != nil {
+			c.ErrorHandler(err)
 		} else {
-			c.FlashError(err.Error())
-			c.RedirectTo(c.RedirectUrl)
+
+			//TODO tags处理
+			var tags []model.Tag
+
+			file := c.ProcessFile("cover")
+			if file.Size != 0 {
+				dbArticle.Cover = file
+			}
+
+			dbArticle.Title = updateArticle.Title
+			dbArticle.SubTitle = updateArticle.SubTitle
+			dbArticle.Keywords = updateArticle.Keywords
+			dbArticle.Content = updateArticle.Content
+			dbArticle.Tags = tags
+			dbArticle.Plate = dbPlate
+			dbArticle.Recommend = updateArticle.Recommend
+
+			if err := model.UpdateDetail(&dbArticle); err == nil {
+				c.FlashSuccess("更新成功")
+				c.RedirectTo("/admin/article")
+			} else {
+				c.FlashError(err.Error())
+				c.RedirectTo(c.RedirectUrl)
+			}
 		}
 	}
 }

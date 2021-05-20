@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-09 09:57:02
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-12 18:40:17
+ * @LastEditTime: 2021-05-20 17:01:37
  * @FilePath: /monkey/global/model.go
  */
 package global
@@ -25,7 +25,7 @@ type PageInfo struct {
 }
 
 type Search struct {
-	Maps interface{} `json:"maps"`
+	Maps map[string]interface{} `json:"maps"`
 	PageInfo
 }
 

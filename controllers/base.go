@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-11 11:46:46
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-13 14:01:03
+ * @LastEditTime: 2021-05-20 17:34:31
  * @FilePath: /monkey/controllers/base.go
  */
 package controllers
@@ -11,8 +11,10 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/viletyy/monkey/global"
 	"github.com/viletyy/monkey/model"
 	"github.com/viletyy/monkey/utils"
+	"github.com/viletyy/yolk"
 
 	"github.com/beego/beego/v2/core/logs"
 	"github.com/beego/beego/v2/core/validation"
@@ -119,4 +121,37 @@ func (c *Base) ErrorHandler(err error) {
 func (c *Base) Back() {
 	c.RedirectTo(c.Ctx.Request.Referer())
 	c.StopRun()
+}
+
+// 默认分页参数
+func (c *Base) PageInfo() (pageInfo global.PageInfo) {
+	var err error
+	pageInfo.Page, err = c.GetInt("page")
+	if pageInfo.Page <= 0 || err != nil {
+		pageInfo.Page = 1
+	}
+	pageInfo.PageSize, err = c.GetInt("per")
+	if pageInfo.PageSize <= 0 || pageInfo.PageSize > 30 || err != nil {
+		pageInfo.PageSize = 30
+	}
+	return
+}
+
+func (c *Base) PageInfoBox() (pageInfo global.PageInfo) {
+	var err error
+	pageInfo.Page, err = c.GetInt("page")
+	if pageInfo.Page <= 0 || err != nil {
+		pageInfo.Page = 1
+	}
+	pageInfo.PageSize, err = c.GetInt("per")
+	if pageInfo.PageSize <= 0 || pageInfo.PageSize > 12 || err != nil {
+		pageInfo.PageSize = 12
+	}
+	return
+}
+
+func (c *Base) ResponseWithResult(searchResult *global.SearchResult) {
+	p := yolk.NewPaginator(c.Ctx.Request, searchResult.PageSize, searchResult.Total)
+	c.Data["paginator"] = p
+	c.Data["List"] = searchResult.List
 }

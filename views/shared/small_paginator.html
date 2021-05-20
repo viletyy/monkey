@@ -1,0 +1,35 @@
+<!--
+ * @Date: 2021-05-20 17:38:09
+ * @LastEditors: viletyy
+ * @LastEditTime: 2021-05-20 17:41:52
+ * @FilePath: /monkey/views/shared/small_paginator.html
+-->
+<!--
+ * @Date: 2021-04-27 16:57:43
+ * @LastEditors: viletyy
+ * @LastEditTime: 2021-04-27 17:40:26
+ * @FilePath: /monkey/views/shared/paginator.html
+-->
+{{if gt .paginator.PageNums 1}}
+<nav class="pagination if-info is-small is-centered" role="navigation" aria-label="pagination">
+  {{if .paginator.HasPrev}}
+    <a href="{{.paginator.PageLinkPrev}}" class="pagination-previous">上一页</a>
+  {{else}}
+    <a class="pagination-previous" disabled>上一页</a>
+  {{end}}
+  {{if .paginator.HasNext}}
+    <a href="{{.paginator.PageLinkNext}}" class="pagination-next">下一页</a>
+  {{else}}
+    <a class="pagination-next" disabled>下一页</a>
+  {{end}}
+  <ul class="pagination-list">
+    {{range $index, $page := .paginator.Pages}}
+      {{if $.paginator.IsActive .}}
+        <li><a class="pagination-link is-current" aria-label="Page {{$page}}" aria-current="{{$page}}">{{$page}}</a></li>
+      {{else}}
+        <li><a href="{{$.paginator.PageLink $page}}" class="pagination-link" aria-label="Goto page {{$page}}">{{$page}}</a></li>
+      {{end}}
+    {{end}}
+  </ul>
+</nav>
+{{end}}

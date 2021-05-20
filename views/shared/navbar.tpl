@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-04-22 14:58:05
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-13 14:05:05
+ * @LastEditTime: 2021-05-20 17:49:48
  * @FilePath: /monkey/views/shared/navbar.tpl
 -->
 <nav class="navbar has-shadow">
@@ -18,7 +18,7 @@
         <div class="navbar-item">
           <div class="control has-icons-left">
             <form action="/search">
-              <input class="input is-rounded" type="text" placeholder="搜索">
+              <input class="input is-rounded" name="keyword" type="text" placeholder="搜索">
               <span class="icon is-left">
                 <i class="fa fa-search"></i>
               </span>

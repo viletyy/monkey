@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-03-12 14:44:54
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-25 22:34:26
+ * @LastEditTime: 2021-05-20 17:41:21
  * @FilePath: /monkey/views/plate/show.tpl
 -->
 <div class="container mb-6">
@@ -11,85 +11,47 @@
         <nav class="breadcrumb is-medium" aria-label="breadcrumbs">
           <ul>
             <li><a href="{{urlfor "Index.Index"}}">首页</a></li>
-            <li><a href="{{urlfor "Article.Index"}}">文章</a></li>
-            <li class="is-active"><a href="#" aria-current="page">Breadcrumb</a></li>
+            <li><a href="{{urlfor "controllers.Plate.Index"}}">板块</a></li>
+            <li class="is-active"><a href="#" aria-current="page">{{.Plate.Name}}</a></li>
           </ul>
         </nav>
         <div class="level">
           <div class="level-left">
             <div class="level-item">
-              <h2 class="subtitle has-text-info">板块哈哈</h2>
+              <h2 class="subtitle has-text-info">{{.Plate.Name}}</h2>
             </div>
           </div>
         </div>
         <div class="columns">
           <div class="column category">
             <ul>
+              {{range $index, $detail := .List}}
               <li>
-                <span class="tag is-black is-normal">文章</span>
-                <a href="" class="pl-2">
-                  Why Isn't My Custom Profile Data Showing on My Tickets?Why Isn't My Custom Profile Data Showing on My Tickets?
-                </a>
+                <span class="tag is-black is-normal">
+                  {{if eq 0 $detail.DetailType}}
+                    文章
+                  {{ end }}
+                  {{if eq 1 $detail.DetailType}}
+                    资讯
+                  {{ end }}
+                </span>
+                {{if eq 0 $detail.DetailType}}
+                  <a href="{{urlfor "Article.Show" ":id" $detail.ID}}" class="pl-2">
+                    {{$detail.Title}}
+                  </a>
+                {{ end }}
+                {{if eq 1 $detail.DetailType}}
+                  <a href="{{urlfor "News.Show" ":id" $detail.ID}}" class="pl-2">
+                    {{$detail.Title}}
+                  </a>
+                {{ end }}
               </li>
-              <li>
-                <span class="tag is-black is-normal">文章</span>
-                <a href="" class="pl-2">
-                  Why Isn't My Custom Profile Data Showing on My Tickets?Why Isn't My Custom Profile Data Showing on My Tickets?
-                </a>
-              </li>
-              <li>
-                <span class="tag is-black is-normal">文章</span>
-                <a href="" class="pl-2">
-                  Why Isn't My Custom Profile Data Showing on My Tickets?Why Isn't My Custom Profile Data Showing on My Tickets?
-                </a>
-              </li>
-              <li>
-                <span class="tag is-black is-normal">文章</span>
-                <a href="" class="pl-2">
-                  Why Isn't My Custom Profile Data Showing on My Tickets?Why Isn't My Custom Profile Data Showing on My Tickets?
-                </a>
-              </li>
-              <li>
-                <span class="tag is-black is-normal">文章</span>
-                <a href="" class="pl-2">
-                  Why Isn't My Custom Profile Data Showing on My Tickets?Why Isn't My Custom Profile Data Showing on My Tickets?
-                </a>
-              </li>
-              <li>
-                <span class="tag is-black is-normal">资讯</span>
-                <a href="" class="pl-2">
-                  How Do I Export My Contacts, Tickets, Reports? How Do I Export My Contacts, Tickets, Reports?
-                </a>
-              </li>
-              <li>
-                <span class="tag is-black is-normal">资讯</span>
-                <a href="" class="pl-2">
-                  How Do I Export My Contacts, Tickets, Reports? How Do I Export My Contacts, Tickets, Reports?
-                </a>
-              </li>
-              <li>
-                <span class="tag is-black is-normal">资讯</span>
-                <a href="" class="pl-2">
-                  How Do I Export My Contacts, Tickets, Reports? How Do I Export My Contacts, Tickets, Reports?
-                </a>
-              </li>
+              {{end}}
             </ul>
           </div>
         </div>
       </section>
     </div>
   </div>
-  <nav class="pagination if-info is-small is-centered" role="navigation" aria-label="pagination">
-    <a class="pagination-previous">Previous</a>
-    <a class="pagination-next">Next page</a>
-    <ul class="pagination-list">
-      <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
-      <li><span class="pagination-ellipsis">&hellip;</span></li>
-      <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-      <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
-      <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
-      <li><span class="pagination-ellipsis">&hellip;</span></li>
-      <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
-    </ul>
-  </nav>
+  {{template "shared/small_paginator.html" .}}
 </div>

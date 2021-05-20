@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-03-12 14:44:54
  * @LastEditors: viletyy
- * @LastEditTime: 2021-04-25 10:06:03
+ * @LastEditTime: 2021-05-20 16:53:03
  * @FilePath: /monkey/views/index/index.tpl
 -->
 <div class="container mb-6">
@@ -12,24 +12,20 @@
       </div>
       <hr>
       <div class="">
+        {{ range $bannerIndex, $banner := .Banners }}
         <figure class="image my-3 is-256x256">
-          <img src="/static/images/banner1.jpeg">
+          <img src="{{$banner.Cover.SavePath}}{{$banner.Cover.DiskName}}">
         </figure>
-        <figure class="image my-3 is-256x256">
-          <img src="/static/images/banner2.jpeg">
-        </figure>
+        {{ end }}
       </div>
       <hr>
       <div class="">
         <article class="message is-info">
           <div class="message-body">
             <p class="title is-5 has-text-info">推荐资源</p>
-            <a class="block has-text-info" href=""><p>Enter the Phoenix</p></a>
-            <a class="block has-text-info" href=""><p>Enter the Phoenix</p></a>
-            <a class="block has-text-info" href=""><p>Enter the Phoenix</p></a>
-            <a class="block has-text-info" href=""><p>Enter the Phoenix</p></a>
-            <a class="block has-text-info" href=""><p>Enter the Phoenix</p></a>
-            <a class="block has-text-info" href=""><p>Enter the Phoenix</p></a>
+            {{ range $recommendIndex, $recommend := .Recommends }}
+            <a class="block has-text-info" href="{{$recommend.Link}}"><p>{{$recommend.Name}}</p></a>
+            {{ end }}
           </div>
         </article>
       </div>
@@ -39,16 +35,16 @@
           <div class="column is-6 has-text-centered">
             <div>
               <p class="heading">文章数</p>
-              <p class="title has-text-grey">3,456</p>
+              <p class="title has-text-grey">{{.ArticleTotalCount}}</p>
             </div>
           </div>
           <div class="column is-6 has-text-centered">
             <div>
               <p class="heading">资讯数</p>
-              <p class="title has-text-grey">123</p>
+              <p class="title has-text-grey">{{.NewsTotalCount}}</p>
             </div>
           </div>
-          <div class="column is-6 has-text-centered">
+          <!-- <div class="column is-6 has-text-centered">
             <div>
               <p class="heading">点赞数</p>
               <p class="title has-text-grey">456K</p>
@@ -59,7 +55,7 @@
               <p class="heading">评论数</p>
               <p class="title has-text-grey">789</p>
             </div>
-          </div>
+          </div> -->
         </nav>
       </div>
     </div>
@@ -89,182 +85,67 @@
           </div> -->
         </div>
         <div class="columns">
-          <div class="column is-3">
-            <article>
-              <a href="{{urlfor "Article.Show" ":id" "1"}}">
-                <figure class="image is-5by3">
-                  <img src="https://i.ibb.co/fq8hSGQ/placeholder-image-368x246.png" />
-                </figure>
-                <h2 class="subtitle">标题</h2>
-                <span class="tag is-rounded">标签</span>
-              </a>
-            </article>
-          </div>
-          <div class="column is-3">
-            <article>
-              <a href="{{urlfor "News.Show" ":id" "1"}}">
-                <figure class="image is-5by3">
-                  <img src="https://i.ibb.co/fq8hSGQ/placeholder-image-368x246.png" />
-                </figure>
-                <h2 class="subtitle">标题</h2>
-                <span class="tag is-rounded">标签</span>
-              </a>
-            </article>
-          </div>
+          {{range $detailIndex, $detail := .Details}}
           <div class="column is-3">
             <article>
               <figure class="image is-5by3">
-                <img src="https://i.ibb.co/fq8hSGQ/placeholder-image-368x246.png" />
+                {{if $detail.Cover.ID}}
+                  <img src="{{$detail.Cover.SavePath}}{{$detail.Cover.DiskName}}" alt="">
+                {{else}}
+                  <img src="https://i.ibb.co/fq8hSGQ/placeholder-image-368x246.png" />
+                {{end}}
               </figure>
-              <h2 class="subtitle">标题</h2>
-              <span class="tag is-rounded">标签</span>
+              <h2 class="subtitle">{{$detail.Title}}</h2>
+              {{range $tagIndex, $tag := $detail.Tags}}
+              <span class="tag is-rounded">{{$tag.Name}}</span>
+              {{end}}
             </article>
           </div>
-          <div class="column is-3">
-            <article>
-              <figure class="image is-5by3">
-                <img src="https://i.ibb.co/fq8hSGQ/placeholder-image-368x246.png" />
-              </figure>
-              <h2 class="subtitle">标题</h2>
-              <span class="tag is-rounded">标签</span>
-            </article>
-          </div>
+          {{end}}
         </div>
       </section>
       <section class="categories">
         <div class="columns is-multiline">
+          {{range $plateIndex, $plate := .Plates}}
           <div class="column is-6">
             <div class="category">
               <h1 class="title is-5 has-text-info">
-                Billing & Accounts <span>5 articles</span>
+                {{$plate.Name}} <span>{{$plate.ArticleCount}} articles</span> <span>{{$plate.NewsCount}} news</span>
               </h1>
               <hr />
               <ul>
-                <li>
-                  <i class="fas fa-caret-right fa-xs icon-padding-right" /></i>
-                  General Billing Overview
+                {{range $pDetailIndex, $pDetail := $plate.Details}}
+                <li>                  
+                  <span class="tag is-black is-normal">
+                    {{if eq 0 $pDetail.DetailType}}
+                      文章
+                    {{ end }}
+                    {{if eq 1 $pDetail.DetailType}}
+                      资讯
+                    {{ end }}
+                  </span>
+                  {{if eq 0 $pDetail.DetailType}}
+                    <a href="{{urlfor "Article.Show" ":id" $pDetail.ID}}" class="pl-2">
+                      {{$pDetail.Title}}
+                    </a>
+                  {{ end }}
+                  {{if eq 1 $pDetail.DetailType}}
+                    <a href="{{urlfor "News.Show" ":id" $pDetail.ID}}" class="pl-2">
+                      {{$pDetail.Title}}
+                    </a>
+                  {{ end }}
                 </li>
-                <li>
-                  <i class="fas fa-caret-right fa-xs icon-padding-right" /></i>
-                  Changing the Account Owner
-                </li>
-                <li>
-                  <i class="fas fa-caret-right fa-xs icon-padding-right" /></i>
-                  Downloading/Printing Your Invoices
-                </li>
-                <li>
-                  <i class="fas fa-caret-right fa-xs icon-padding-right" /></i>
-                  Downloading/Printing Your Invoices
-                </li>
-                <li>
-                  <i class="fas fa-caret-right fa-xs icon-padding-right" /></i>
-                  What to Do When Your Card is Declined
-                </li>
+                
+                {{ end }}
               </ul>
               <div class="category-more">
-                <button type="button" class="button is-info is-small">
-                  View All <i class="fas fa-arrow-right"></i>
-                </button>
+                <a href="{{urlfor "Plate.Show" ":id" $plate.ID}}" class="button is-info is-small">
+                  查看所有 <i class="fas fa-arrow-right"></i>
+                </a>
               </div>
             </div>
           </div>
-          <div class="column is-6">
-            <div class="category">
-              <h1 class="title is-5 has-text-info">
-                FAQs <span>7 articles</span>
-              </h1>
-              <hr />
-              <ul>
-                <li>
-                  <i class="fas fa-caret-right fa-xs icon-padding-right" /></i>
-                  Why Isn't My Custom Profile Data Showing on My Tickets?
-                </li>
-                <li>
-                  <i class="fas fa-caret-right fa-xs icon-padding-right" /></i>
-                  Why Won't My Gmail SMTP Settings Work?
-                </li>
-                <li>
-                  <i class="fas fa-caret-right fa-xs icon-padding-right" /></i>
-                  Is There a Customer Portal My Users Can Log in To?
-                </li>
-                <li>
-                  <i class="fas fa-caret-right fa-xs icon-padding-right" /></i>
-                  How Do I Export My Contacts, Tickets, Reports?
-                </li>
-                <li>
-                  <i class="fas fa-caret-right fa-xs icon-padding-right" /></i>
-                  How Do I Search for a Number?
-                </li>
-              </ul>
-              <div class="category-more">
-                <button type="button" class="button is-info is-small">
-                  View All <i class="fas fa-arrow-right"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="column is-6">
-            <div class="category">
-              <h1 class="title is-5 has-text-info">
-                Getting Started <span>6 articles</span>
-              </h1>
-              <hr />
-              <ul>
-                <li>
-                  <i class="fas fa-caret-right fa-xs icon-padding-right" /></i>
-                  Creating a New Conversation
-                </li>
-                <li>
-                  <i class="fas fa-caret-right fa-xs icon-padding-right" /></i>
-                  Assigning Conversations and Changing Status
-                </li>
-                <li>
-                  <i class="fas fa-caret-right fa-xs icon-padding-right" /></i>
-                  Adding Internal Notes
-                </li>
-                <li>
-                  <i class="fas fa-caret-right fa-xs icon-padding-right" /></i>
-                  Configuring Your Inbox View
-                </li>
-                <li>
-                  <i class="fas fa-caret-right fa-xs icon-padding-right" /></i>
-                  Snoozing a Conversation
-                </li>
-              </ul>
-              <div class="category-more">
-                <button type="button" class="button is-info is-small">
-                  View All <i class="fas fa-arrow-right"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="column is-6">
-            <div class="category">
-              <h1 class="title is-5 has-text-info">
-                Users & Groups <span>3 articles</span>
-              </h1>
-              <hr />
-              <ul>
-                <li>
-                  <i class="fas fa-caret-right fa-xs icon-padding-right" /></i>
-                  Understanding User Roles
-                </li>
-                <li>
-                  <i class="fas fa-caret-right fa-xs icon-padding-right" /></i>
-                  Creating a Group
-                </li>
-                <li>
-                  <i class="fas fa-caret-right fa-xs icon-padding-right" /></i>
-                  Editing the Role of a User
-                </li>
-              </ul>
-              <div class="category-more">
-                <button type="button" class="button is-info is-small">
-                  View All <i class="fas fa-arrow-right"></i>
-                </button>
-              </div>
-            </div>
-          </div>
+          {{end}}
         </div>
       </section>
     </div>

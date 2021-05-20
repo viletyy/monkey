@@ -1,13 +1,14 @@
 /*
  * @Date: 2021-03-11 16:33:58
  * @LastEditors: viletyy
- * @LastEditTime: 2021-05-20 11:07:57
+ * @LastEditTime: 2021-05-20 17:24:34
  * @FilePath: /monkey/routers/router.go
  */
 package routers
 
 import (
 	"strings"
+	"time"
 
 	"github.com/viletyy/monkey/controllers"
 
@@ -19,6 +20,8 @@ func init() {
 	beego.InsertFilter("*", beego.BeforeRouter, filterMethod)
 	_ = beego.AddFuncMap("isActiveController", isActiveController)
 	_ = beego.AddFuncMap("stringJoin", stringJoin)
+	_ = beego.AddFuncMap("formatTime", formatTime)
+
 	beego.Router("/", &controllers.Index{}, "get:Index")
 	beego.Router("/search", &controllers.Index{}, "get:Search")
 	beego.Router("/article", &controllers.Article{}, "get:Index")
@@ -47,4 +50,8 @@ func filterMethod(ctx *context.Context) {
 	if ctx.Input.Query("_method") != "" && ctx.Input.IsPost() {
 		ctx.Request.Method = strings.ToUpper(ctx.Input.Query("_method"))
 	}
+}
+
+func formatTime(time time.Time) string {
+	return time.Format("2006年1月2日 15:04:05")
 }
